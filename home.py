@@ -3,15 +3,20 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import datetime as dt
-# from tkcalendar import DateEntry,Calender
+from turtle import width
+import mysql.connector
+import io
+from models import *
+import tkcalendar
+from tkcalendar import DateEntry
+
 root=Tk()
 root.geometry("1360x730")
 root.resizable(False, False)
 
 root.title("TALLY PRIME")
 
-# p1 = PhotoImage(file = 'images/fbicon.png')
-# root.iconphoto(False, p1)
+
 curnt_period = Label(root, text="CURRENT PERIOD",fg="blue").place(x=40, y=30)
 curnt_date = Label(root, text="CURRENT DATE",fg="blue").place(x=340, y=30)
 prd = Label(root, text="1-Apr-22 to 31-March-23", fg="black").place(x=40, y=60)
@@ -78,48 +83,114 @@ def func2():
     screen2.geometry('430x430')
     Label(screen2, text='List Of Companies',bg="blue",font='17',fg="white",width=430).pack()
     sbmibtn = Button(screen2, text='Create Company',command=create,fg='black',font=('Arial',9),activebackground='yellow',width=30,border=0).place(x=240,y=40)
-    sbmibtn2 = Button(screen2, text='Alter Company',command=create,fg='black',font=('Arial',9),activebackground='yellow',width=30,border=0).place(x=240,y=70)
+    sbmibtn2 = Button(screen2, text='Alter Company',command=alter,fg='black',font=('Arial',9),activebackground='yellow',width=30,border=0).place(x=240,y=70)
     sbmibtn3 = Button(screen2, text='Select Company',command=create,fg='black',font=('Arial',9),activebackground='yellow',width=30,border=0).place(x=240,y=100)
     sbmibtn4 = Button(screen2, text='Shut Company', command=create, fg='black',font=('Arial',9),activebackground='yellow', width=30, border=0).place(x=240, y=130)
-
+    my_frame = Frame(screen2)
+    my_scrollbar = Scrollbar(my_frame,orient=VERTICAL)
+    my_listbox = Listbox(my_frame,yscrollcommand=my_scrollbar.set,width=60)
+    my_scrollbar.config(command = my_listbox.yview)
+    my_scrollbar.pack(side = RIGHT,fill=Y)
+    my_frame.place(x=20,y=180)
+    my_listbox.pack(pady=10)
+    mycursor.execute("select name from company")
+    for x in mycursor:
+        my_listbox.insert(END,x)
 
 def create():
     global screen3
     screen3 = Toplevel(root)
     screen3.resizable(False, False)
     screen3.title('Create Company')
-    screen3.geometry('940x520')
+    screen3.geometry('940x670')
     Label(screen3, text='COMPANY CREATION',bg="navyblue",font='17',fg="white",width=640).pack()
-    global  Cname,Cmailing,Caddress, email,state,country,pcode,tphone,mphone,fax,site,symbol,format
+    global  Cname,Cmailing,Caddress, mail,statee,countryy,picode,tephone,mophone,faxx,sitee,symboll,formall,e2,e14
     Cname = StringVar()
     Cmailing = StringVar()
     Caddress = StringVar()
-    email = StringVar()
-    state = StringVar()
-    country = StringVar()
-    pcode = IntVar()
-    tphone = StringVar()
-    mphone = StringVar()
-    fax = StringVar()
-    site = StringVar()
-    symbol = StringVar()
-    format = StringVar()
+    mail = StringVar()
+    statee = StringVar()
+    countryy = StringVar()
+    picode = IntVar()
+    tephone = StringVar()
+    mophone = StringVar()
+    faxx = StringVar()
+    sitee = StringVar()
+    symboll = StringVar()
+    formall = StringVar()
     
     
     cname = Label(screen3, text='Company Name:').place(x=20, y=70)
-    e1 = Entry(screen3, textvariable=Cname,width=40).place(x=120, y=70)
+    e1 = Entry(screen3, textvariable=Cname,width=40).place(x=130, y=70)
     y1 = Label(screen3, text='Financial Year begining From:').place(x=450, y=70)
-    # e2 = DateEntry(screen3,width=25)
+    e2 = DateEntry(screen3,width=25)
+    e2.place(x=650, y=70)
     adrs1 = Label(screen3, text='Mailing Name:').place(x=20, y=110)
-    e3 = Entry(screen3, textvariable=Cmailing, width=40).place(x=120, y=110)
+    e3 = Entry(screen3, textvariable=Cmailing, width=40).place(x=130, y=110)
     y2 = Label(screen3, text='Books Begining From:').place(x=450, y=110)
+    e14 = DateEntry(screen3, width=25)
+    e14.place(x=650, y=110)
     adrs = Label(screen3, text='Address:').place(x=20, y=150)
-    e4 = Entry(screen3,textvariable=Caddress,width=40).place(x=120, y=150)
+    e4 = Entry(screen3,textvariable=Caddress,width=40).place(x=130, y=150)
+    state = Label(screen3, text='State:').place(x=20, y=190)
+    e5 = Entry(screen3, textvariable=statee, width=40).place(x=130, y=190)
+    country = Label(screen3, text='Country:').place(x=20, y=230)
+    e6 = Entry(screen3, textvariable= countryy, width=40).place(x=130, y=230)
+    pcode = Label(screen3, text='Pincode:').place(x=20, y=270)
+    e7 = Entry(screen3, textvariable= picode , width=40).place(x=130, y=270)
+    tphone = Label(screen3, text='Telephone:').place(x=20, y=310)
+    e8 = Entry(screen3, textvariable=tephone , width=40).place(x=130, y=310)
+    mphone = Label(screen3, text='Mobile:').place(x=20, y=350)
+    e9 = Entry(screen3, textvariable=mophone, width=40).place(x=130, y=350)
+    fax = Label(screen3, text='Fax:').place(x=20, y=390)
+    e10 = Entry(screen3, textvariable=faxx, width=40).place(x=130, y=390)
+    email = Label(screen3, text='Email:').place(x=20, y=430)
+    e10 = Entry(screen3, textvariable=mail, width=40).place(x=130, y=430)
+    site = Label(screen3, text='Website:').place(x=20, y=470)
+    e11 = Entry(screen3, textvariable=sitee, width=40).place(x=130, y=470)
+    symbol = Label(screen3, text='Currency Symbol:').place(x=20, y=510)
+    e12 = Entry(screen3, textvariable=symboll, width=40).place(x=130, y=510)
+    formal = Label(screen3, text='Formal Name:').place(x=20, y=550)
+    e13 = Entry(screen3, textvariable=formall, width=40).place(x=130, y=550)
+    btn = Button(screen3, text='Submit', width=20, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=submit).place(x=160, y=590)
+    
+
+def submit():
+    global coname,Fyear,madrs,Byear,adrs,state,country,picode,tno,mno,fax,mail,site,cusymbol,formal
+    coname = Cname.get()
+    madrs = Cmailing.get()
+    adrs = Caddress.get()
+    mail = mail.get()
+    state = statee.get()
+    country = countryy.get()
+    picode = picode.get()
+    tno = tephone.get()
+    mno = mophone.get()
+    fax = faxx.get()
+    site = sitee.get()
+    Fyear = e2.get_date()
+    Byear = e14.get_date()
+    cusymbol = symboll.get()
+    formal = formall.get()
+    sql = 'INSERT INTO company(name, mailing_name, address, email, state, country, pincode, telephone, mobile, fax, website, financial_year, year_begin, currencysign, currency) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (coname, madrs, adrs, mail, state, country, picode,
+           tno, mno, fax, site, Fyear, Byear, cusymbol, formal)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('Create Company Successfully')
+
+def alter():
+    global screen4
+    screen3 = Toplevel(root)
+    screen3.resizable(False, False)
+    screen3.title('Alter Company')
+    screen3.geometry('940x670')
+    Label(screen3, text='ALTER COMPANY',bg="navyblue",font='17',fg="white",width=640).pack()
+    
     
 company = Button(frame3, text="Company", width=20, fg="black", font=(
     "impact", 8), command=func2, activebackground="yellow", activeforeground="red").place(x=13, y=50)
 
 
 root.mainloop()
-
 

@@ -23,11 +23,8 @@ mycursor=mydb.cursor()
 #                       website varchar(200),
 #                       financial_year DATE,
 #                       year_begin DATE,
+#                       currencysign varchar(100),
 #                       currency varchar(200),
-#                      currencysign int,
-# 		             currsignplace varchar(255),
-#                      decimalseperator varchar(155),
-#                      excurrency varchar(255),
-#                      PRIMARY KEY(companyid))
+#                       PRIMARY KEY(companyid))
 #                 """)
 
