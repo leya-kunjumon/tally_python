@@ -83,7 +83,7 @@ def func2():
     sbmibtn = Button(screen2, text='Create Company',command=create,fg='black',font=('Arial',9),activebackground='yellow',width=30,border=0).place(x=240,y=40)
     sbmibtn2 = Button(screen2, text='Alter Company',command=alter,fg='black',font=('Arial',9),activebackground='yellow',width=30,border=0).place(x=240,y=70)
     sbmibtn3 = Button(screen2, text='Select Company',command=select,fg='black',font=('Arial',9),activebackground='yellow',width=30,border=0).place(x=240,y=100)
-    sbmibtn4 = Button(screen2, text='Shut Company', command=create, fg='black',font=('Arial',9),activebackground='yellow', width=30, border=0).place(x=240, y=130)
+    sbmibtn4 = Button(screen2, text='Shut Company', command=shut_company, fg='black',font=('Arial',9),activebackground='yellow', width=30, border=0).place(x=240, y=130)
     my_frame = Frame(screen2)
     my_scrollbar = Scrollbar(my_frame,orient='vertical')
     my_listbox = Listbox(my_frame,yscrollcommand=my_scrollbar.set,width=60)
@@ -331,5 +331,20 @@ def select():
     e1 = Entry(screen6, textvariable=company_name, width=40).place(x=170, y=70)
     btn = Button(screen6, text='Submit', width=10, fg="white", font=(
         "arial", 13), bg='green', activebackground="yellow").place(x=170, y=130)
+
+def shut_company():
+    global screen7
+    screen7 = Toplevel(root)
+    screen7.resizable(False, False)
+    screen7.title('Shut Company')
+    screen7.geometry('430x330')
+    Label(screen7, text='Shut Company', bg="navyblue",
+          font='17', fg="white", width=640).pack()
+    company_name = StringVar()
+    cname = Label(screen7, text='Enter Company Name:').place(x=20, y=70)
+    e1 = Entry(screen7, textvariable=company_name, width=40).place(x=170, y=70)
+    btn = Button(screen7, text='Submit', width=10, fg="white", font=(
+        "arial", 13), bg='green', activebackground="yellow").place(x=170, y=130)
 root.mainloop()
+
 
