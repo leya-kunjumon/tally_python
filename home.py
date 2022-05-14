@@ -1,4 +1,6 @@
-from msilib.schema import Font
+from glob import glob
+import imghdr
+from msilib.schema import Font, Icon
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
@@ -159,7 +161,6 @@ def create():
     e13 = Entry(screen3, textvariable=formall, width=40).place(x=130, y=550)
     btn = Button(screen3, text='Submit', width=20, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=submit).place(x=160, y=590)
     
-
 def submit():
     global coname,Fyear,madrs,Byear,adrs,state,country,picode,tno,mno,fax,mail,site,cusymbol,formal
     coname = Cname.get()
@@ -326,25 +327,77 @@ def select():
     screen6.geometry('430x330')
     Label(screen6, text='Select Company', bg="navyblue",
           font='17', fg="white", width=640).pack()
-    company_name = StringVar()
-    cname = Label(screen6, text='Enter Company Name:').place(x=20, y=70)
-    e1 = Entry(screen6, textvariable=company_name, width=40).place(x=170, y=70)
-    btn = Button(screen6, text='Submit', width=10, fg="white", font=(
-        "arial", 13), bg='green', activebackground="yellow").place(x=170, y=130)
+    select_frame = Frame(screen6)
+    select_frame.pack(fill=BOTH,expand=1)
+    
+    my_canvas = Canvas(select_frame)
+    my_canvas.pack(side=LEFT,fill=BOTH,expand=1)
+    
+    shut_scroll = ttk.Scrollbar(select_frame,orient=VERTICAL,command=my_canvas.yview)
+    shut_scroll.pack(side=RIGHT,fill=Y)
+    
+    my_canvas.configure(yscrollcommand=shut_scroll.set)
+    my_canvas.bind('<Configure>',lambda e:my_canvas.configure(scrollregion=my_canvas.bbox("all")))
+    
+    select2_frame = Frame(my_canvas)
+    
+    my_canvas.create_window((0,0),window=select2_frame,anchor="nw")
+    mycursor.execute('SELECT name FROM company')
+    for i in mycursor.fetchall():
+        Button(select2_frame, text=i[0], fg="black", width=20, border=0, font=(
+            "arial", 13), activebackground="yellow").grid(column=0, pady=10, padx=10)
 
 def shut_company():
     global screen7
     screen7 = Toplevel(root)
     screen7.resizable(False, False)
     screen7.title('Shut Company')
-    screen7.geometry('430x330')
-    Label(screen7, text='Shut Company', bg="navyblue",
+    screen7.geometry('430x430')
+    Label(screen7, text='List Of Companies', bg="navyblue",
           font='17', fg="white", width=640).pack()
-    company_name = StringVar()
-    cname = Label(screen7, text='Enter Company Name:').place(x=20, y=70)
-    e1 = Entry(screen7, textvariable=company_name, width=40).place(x=170, y=70)
-    btn = Button(screen7, text='Submit', width=10, fg="white", font=(
-        "arial", 13), bg='green', activebackground="yellow").place(x=170, y=130)
+    shut_frame = Frame(screen7)
+    shut_frame.pack(fill=BOTH,expand=1)
+    
+    my_canvas = Canvas(shut_frame)
+    my_canvas.pack(side=LEFT,fill=BOTH,expand=1)
+    
+    shut_scroll = ttk.Scrollbar(shut_frame,orient=VERTICAL,command=my_canvas.yview)
+    shut_scroll.pack(side=RIGHT,fill=Y)
+    
+    my_canvas.configure(yscrollcommand=shut_scroll.set)
+    my_canvas.bind('<Configure>',lambda e:my_canvas.configure(scrollregion=my_canvas.bbox("all")))
+    
+    shut2_frame = Frame(my_canvas)
+    
+    my_canvas.create_window((0,0),window=shut2_frame,anchor="nw")
+    mycursor.execute('SELECT name FROM company')
+    for i in mycursor.fetchall():
+       Button(shut2_frame,text=i[0],fg="black",width=20,border=0,font=( "arial", 13),activebackground="yellow",command=shut).grid(column=0,pady=10,padx=10)
+def shut():
+    global pop 
+    pop = Toplevel(screen7)
+    pop.title("shut company")
+    pop.geometry("380x250")
+    pop.resizable(False,False)
+    global img
+    # img = PhotoImage(file="images/warning1.png",width=10,height=30)
+    # img.grid(row=0,column=2,pady=10)
+    pop_label = Label(pop,text="Do you want to shut the company?",fg="red",font=("helvetica",12))
+    pop_label.pack(pady=40)
+    new_frame = Frame(pop)
+    new_frame.pack(pady=5)
+    
+    yes = Button(new_frame,text="YES",width=20,command=lambda:choice("yes"))
+    yes.grid(row=2,column=2)
+    no = Button(new_frame, text="NO", width=20, command=lambda: choice("no"))
+    no.grid(row=2,column=3,padx=10)
+def choice(option):
+    pop.destroy()
+    if option =="yes":
+        pass
+    else:
+        messagebox.showinfo('Yow will now return to application screen')
+    
 root.mainloop()
 
 
