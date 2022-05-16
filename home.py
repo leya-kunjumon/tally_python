@@ -11,7 +11,7 @@ import io
 from models import *
 import tkcalendar
 from tkcalendar import DateEntry
-
+from PIL import ImageTk,Image
 root=Tk()
 root.geometry("1360x730")
 root.resizable(True, True)
@@ -26,52 +26,52 @@ cpny = Label(root, text="ABC Pvt ltd", fg="black").place(x=40, y=140)
 date_entry = Label(root, text="1-Apr-22",fg="black").place(x=340, y=140)
 separator = ttk.Separator(root,orient='vertical')
 separator.place(relx=0.47,rely=0,relwidth=0.2,relheight=1)
-frame = Label(root, text="Gateway of Tally",bg="blue",fg="white",width=40,padx=20,pady=10).place(x=740, y=110)
-frame1 = Frame(root, bg="black", width=305, height=540)
-frame1.place(x=740, y=145)
-frame2 = Frame(frame1, bg="skyblue", width=305, height=540)
+frame = Label(root, text="Accounts Book",bg="blue",fg="white",width=40,padx=20,pady=10).place(x=740, y=65)
+frame1 = Frame(root, bg="black", width=305, height=570)
+frame1.place(x=740, y=100)
+frame2 = Frame(frame1, bg="skyblue", width=305, height=570)
 frame2.pack(pady=10, padx=10)
-mstrs = Label(root, text="Masters",bg="skyblue",fg="black",font="17").place(x=870,y=190)
-def func1():
-    screen1 = Toplevel(root)
-    screen1.title('Create')
-    screen1.geometry('500x500')
-    
+mstrs = Label(root, text="Summary",bg="skyblue",fg="black",font="17").place(x=870,y=150)
 
-b1 = Button(root, text="Create", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=230)
 
-b2 = Button(root, text="Alter", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=260)
-b3 = Button(root, text="Chart of Accounts", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=290)
+b1 = Button(root, text="Cash/Bank Book", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=180)
 
-mstrs1 = Label(root, text="Transactions",bg="skyblue",fg="black",font="17").place(x=840,y=320)
-b5 = Button(root, text="Vouchers", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=360)
-b6 = Button(root, text="Day Book", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=390)
-mstrs2 = Label(root, text="Utilities",bg="skyblue",fg="black",font="17").place(x=870,y=420)
-b7 = Button(root, text="Banking", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=450)
+b2 = Button(root, text="Ledger", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=210)
+b3 = Button(root, text="Group Summary", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=250)
+b5 = Button(root, text="Group Vouchers", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=280)
+mstrs2 = Label(root, text="Register",bg="skyblue",fg="black",font="17").place(x=870,y=320)
+b6 = Button(root, text="Contra Register", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=350)
 
-mstrs3 = Label(root, text="Reports",bg="skyblue",fg="black",font="17").place(x=870,y=490)
-b8 = Button(root, text="Balance Sheet", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=530)
-b9 = Button(root, text="Profit & Loss", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=560)
-b10 = Button(root, text="Stock Summary", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=590)
+b7 = Button(root, text="Payment Register", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=380)
+b71 = Button(root, text="Receipt Register", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=410)
 
-b10 = Button(root, text="Ratio Analysis", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=func1).place(x=830, y=620)
-b11 = Button(root, text="Display More Reports", fg="black", activebackground="yellow",
-             bg="silver", width=20, height=1, command=func1).place(x=830, y=660)
-             
+
+b8 = Button(root, text="Sales Register", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=460)
+b9 = Button(root, text="Purchase Register", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=490)
+          
+b10 = Button(root, text="Journal Register", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=530)
+
+b11 = Button(root, text="Debit Note Register", fg="black", activebackground="yellow",
+            bg="silver", width=20, height=1).place(x=830, y=560)
+b12= Button(root, text="Credit Note Register", fg="black", activebackground="yellow",
+             bg="silver", width=20, height=1).place(x=830, y=590)
+
+b13 = Button(root, text="Voucher Clarification", fg="black", activebackground="yellow",
+             bg="silver", width=20, height=1).place(x=830, y=630)
 frame3 = Frame(root, bg="skyblue", width=130, height=750)
 frame3.place(x=1200, y=0)
 date = Button(frame3, text="Date", width=20, fg="black", font=(
-    "impact", 8), command=func1, activebackground="yellow", activeforeground="red")
+    "impact", 8), activebackground="yellow", activeforeground="red")
 date.place(x=13, y=20)
 
 
@@ -379,17 +379,21 @@ def shut():
     pop.title("shut company")
     pop.geometry("380x250")
     pop.resizable(False,False)
+    image = Image.open('images/warning1.png')
+    image = image.resize((70,80),Image.ANTIALIAS)
     global img
-    # img = PhotoImage(file="images/warning1.png",width=10,height=30)
-    # img.grid(row=0,column=2,pady=10)
+    img = ImageTk.PhotoImage(image)
+    my_img = Label(pop,image=img)
+    my_img.pack()
     pop_label = Label(pop,text="Do you want to shut the company?",fg="red",font=("helvetica",12))
     pop_label.pack(pady=40)
     new_frame = Frame(pop)
     new_frame.pack(pady=5)
     
-    yes = Button(new_frame,text="YES",width=20,command=lambda:choice("yes"))
+    yes = Button(new_frame,text="YES",fg="white",width=20,bg="red",relief=SUNKEN,command=lambda:choice("yes"))
     yes.grid(row=2,column=2)
-    no = Button(new_frame, text="NO", width=20, command=lambda: choice("no"))
+    no = Button(new_frame, text="NO", fg="white", width=20,
+                bg="green", relief=SUNKEN, command=lambda: choice("no"))
     no.grid(row=2,column=3,padx=10)
 def choice(option):
     pop.destroy()
