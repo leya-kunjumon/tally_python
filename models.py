@@ -28,3 +28,12 @@ mycursor=mydb.cursor()
 #                       PRIMARY KEY(companyid))
 #                 """)
 
+# mycursor.execute(
+#     "create table currency(symbol c,formal_name varchar(200),currency_code varchar(200),decimal_places int,amount_in_millions varchar(100),suffix_symbol varchar(100),space varchar(100),word_repsn varchar(100),decimal_words varchar(200))")
+
+# mycursor.execute(
+#     "create table voucher(name varchar(200),type varchar(200),abbreviation varchar(200),voucher_activate varchar(100),voucher_method varchar(200),Use_effective_dates varchar(100),allow_zero_valued varchar(100),voucher_type_optional varchar(100),voucher_narration varchar(100),ledger_narration varchar(200),voucher_saving varchar(200))")
+
+# mycursor.execute(
+#     "create table stockGroup(stock_id int AUTO_INCREMENT,name varchar(200),PRIMARY KEY(stock_id))")
+
