@@ -35,5 +35,10 @@ mycursor=mydb.cursor()
 #     "create table voucher(name varchar(200),type varchar(200),abbreviation varchar(200),voucher_activate varchar(100),voucher_method varchar(200),Use_effective_dates varchar(100),allow_zero_valued varchar(100),voucher_type_optional varchar(100),voucher_narration varchar(100),ledger_narration varchar(200),voucher_saving varchar(200))")
 
 # mycursor.execute(
-#     "create table stockGroup(stock_id int AUTO_INCREMENT,name varchar(200),PRIMARY KEY(stock_id))")
+#     "create table stockGroup(stock_id int AUTO_INCREMENT,name varchar(200),stock_under varchar(200),stock_quantities varchar(200),stock_details varchar(200), PRIMARY KEY(stock_id))")
 
+# mycursor.execute(
+#     "create table stock_Catagory(stock_id int AUTO_INCREMENT,name varchar(200),PRIMARY KEY(stock_id))")
+     
+     
+# mycursor.execute('drop table stockGroup')

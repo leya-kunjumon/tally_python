@@ -62,9 +62,9 @@ def create_master():
           font=('Arial', 11), fg="black").place(x=10, y=180)
     Button(screen1, text='Stock Group', command=stock_creation, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=200)
-    Button(screen1, text='Stock Catagory', command='', fg='black', font=(
+    Button(screen1, text='Stock Catagory', command=stock_catagory, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=220)
-    Button(screen1, text='Stock Item', command='', fg='black', font=(
+    Button(screen1, text='Stock Item', command=stock_item, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=240)
     Button(screen1, text='Unit', command='', fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260)
@@ -269,23 +269,72 @@ def voucher_submit():
 def stock_creation():
     stock_scrn = Toplevel(root)
     stock_scrn .title('CREATE')
-    stock_scrn.geometry('370x270')
+    stock_scrn.geometry('500x270')
     Label(stock_scrn, text='Stock Group Creation', bg="blue",
           font='17', fg="white", width=430).pack()
+    global stock,stockk_under,stock_entry3, stock_entry4
     Stock_name = Label(stock_scrn, text='Name:').place(x=20, y=70)
-    global stock
     stock = StringVar()
-    stock_entry1 = Entry(stock_scrn, textvariable=stock, width=38).place(x=100, y=70)
+    stock_entry1 = Entry(stock_scrn, textvariable=stock, width=38).place(x=260, y=70)
+    stock_under = Label(stock_scrn, text='Under:').place(x=20, y=100)
+    stockk_under = StringVar()
+    stock_entry2 = Entry(stock_scrn, textvariable=stockk_under, width=38).place(x=260, y=100)
+    stock_qnty = Label(stock_scrn, text='Should quantities of items be added:').place(x=20, y=130)
+    stockk_qnty = ['Yes','No']
+    stock_entry3 = ttk.Combobox(stock_scrn, value=stockk_qnty, width=35)
+    stock_entry3.place(x=260, y=130)
+    stock_gst =  Label(stock_scrn, text='Set/Alter GST details:').place(x=20, y=160)
+    stockk_gst = ['Yes','No']
+    stock_entry4 = ttk.Combobox(stock_scrn, value=stockk_gst, width=35)
+    stock_entry4.place(x=260, y=160)
     stock_btn = Button(stock_scrn, text='Submit', width=13, fg="white", font=(
-        "arial", 13), bg='green', activebackground="yellow", command=stock_submit, relief=GROOVE).place(x=120, y=140)
+        "arial", 13), bg='green', activebackground="yellow", command=stock_submit, relief=GROOVE).place(x=200, y=220)
 def stock_submit():
     stck_name = stock.get()
-    sql = 'INSERT INTO stockGroup(name) VALUES(%s)'
-    val = (stck_name,)
+    stck_under = stockk_under.get()
+    stck_qnty = stock_entry3.get()
+    stck_details = stock_entry4.get()
+    sql = 'INSERT INTO stockGroup(name,stock_under,stock_quantities,stock_details) VALUES(%s,%s,%s,%s)'
+    val = (stck_name, stck_under,stck_qnty,stck_details)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Stock Group Successfully Created')
 
+def stock_catagory():
+    stock_catagscrn = Toplevel(root)
+    stock_catagscrn.title('CREATE')
+    stock_catagscrn.geometry('400x270')
+    Label(stock_catagscrn , text='Stock Catagory Creation', bg="blue",
+          font='17', fg="white", width=430).pack()
+    global stock_product
+    Stock_catgname = Label(stock_catagscrn, text='Name:').place(x=20, y=70)
+    stock_product = StringVar()
+    stock_entry1 = Entry(stock_catagscrn, textvariable=stock_product,
+                         width=38).place(x=100, y=70)
+    stock_catagbtn = Button(stock_catagscrn, text='Submit', width=13, fg="white", font=(
+        "arial", 13), bg='green', activebackground="yellow", command=stock_catagsubmit, relief=GROOVE).place(x=160, y=130)
+
+def stock_catagsubmit():
+    stck_catag = stock_product.get()
+    sql = 'INSERT INTO stock_Catagory(name) VALUES(%s)'
+    val = (stck_catag,)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('Stock Catagory Successfully Created')
+
+def stock_item():
+    stock_itemscrn = Toplevel(root)
+    stock_itemscrn .title('CREATE')
+    stock_itemscrn.geometry('500x270')
+    Label(stock_itemscrn, text='Stock Item Creation', bg="blue",
+          font='17', fg="white", width=430).pack()
+    global stock_item_name
+    Stock_itemname = Label(stock_itemscrn, text='Name:').place(x=20, y=70)
+    stock_item_name = StringVar()
+    stock_entry1 = Entry(stock_itemscrn, textvariable=stock_product,
+                         width=38).place(x=100, y=70)
+    
+    
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
 
