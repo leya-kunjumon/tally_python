@@ -66,7 +66,7 @@ def create_master():
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=220)
     Button(screen1, text='Stock Item', command=stock_item, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=240)
-    Button(screen1, text='Unit', command='', fg='black', font=(
+    Button(screen1, text='Unit', command=unit, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260)
     Button(screen1, text='Godown', command='', fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=280)
@@ -325,16 +325,66 @@ def stock_catagsubmit():
 def stock_item():
     stock_itemscrn = Toplevel(root)
     stock_itemscrn .title('CREATE')
-    stock_itemscrn.geometry('500x270')
+    stock_itemscrn.geometry('500x370')
     Label(stock_itemscrn, text='Stock Item Creation', bg="blue",
           font='17', fg="white", width=430).pack()
-    global stock_item_name
+    global stock_item_name,stock_entry4,stock_entry5,stock_entry6, stock_entry7, stock_entry8
     Stock_itemname = Label(stock_itemscrn, text='Name:').place(x=20, y=70)
     stock_item_name = StringVar()
-    stock_entry1 = Entry(stock_itemscrn, textvariable=stock_product,
-                         width=38).place(x=100, y=70)
-    
-    
+    stock_entry1 = Entry(stock_itemscrn, textvariable=stock_item_name,
+                         width=38).place(x=210, y=70)
+    Stock_itemunder = Label(stock_itemscrn, text='Under:').place(x=20, y=100)
+    stock_entry4 = ttk.Combobox(stock_itemscrn,width=35)
+    stock_entry4.place(x=210,y=100)
+    mycursor.execute('SELECT name FROM stockGroup')
+    for i in mycursor.fetchall():
+        stock_entry4.insert(0, i)
+    Stock_itemunit = Label(stock_itemscrn, text='Units:').place(x=20, y=130)
+    stockk_under = ['Applicable','Not Applicable']
+    stock_entry5 = ttk.Combobox(stock_itemscrn, value=stockk_under, width=35)
+    stock_entry5.place(x=210, y=130) 
+    Label(stock_itemscrn, text='Statutory Details',
+          font='17', fg="black").place(x=20,y=160)
+    Stock_gst = Label(stock_itemscrn, text='GST Applicable:').place(x=20, y=190)
+    stockk_under1 = ['Applicable','Not Applicable']
+    stock_entry6 = ttk.Combobox(stock_itemscrn, value=stockk_under1, width=35)
+    stock_entry6.place(x=210, y=190)
+    Stock_detail = Label(stock_itemscrn, text='Set/Alter GST details:').place(x=20, y=220)
+    stockk_under2 = ['Yes','No']
+    stock_entry7 = ttk.Combobox(stock_itemscrn, value=stockk_under2, width=35)
+    stock_entry7.place(x=210, y=220)
+    Stock_typ = Label(stock_itemscrn, text='Type of Supply:').place(x=20, y=250)
+    stockk_under3 = ['Goods','Services']
+    stock_entry8 = ttk.Combobox(stock_itemscrn, value=stockk_under3, width=35)
+    stock_entry8.place(x=210, y=250)
+    stock_itembtn = Button(stock_itemscrn, text='Submit', width=13, fg="white", font=(
+        "arial", 13), bg='green', activebackground="yellow", command=stock_itemsubmit, relief=GROOVE).place(x=160, y=290)
+        
+def stock_itemsubmit():
+    stck_nme = stock_item_name.get()
+    stck_under = stock_entry4.get()
+    stck_units = stock_entry5.get()
+    stck_gst = stock_entry6.get()
+    stck_detail = stock_entry7.get()
+    stck_supply = stock_entry8.get()
+    sql = 'INSERT INTO stock_item(name,units,gst_applicable,gst_details,supply_type) VALUES(%s,%s,%s,%s,%s)'
+    val = (stck_nme,stck_units, stck_gst,stck_detail, stck_supply)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('Stock Item Successfully Created')
+
+def unit() :
+    unitscrn = Toplevel(root)
+    unitscrn.title('CREATE')
+    unitscrn.geometry('500x300')
+    Label(unitscrn, text='Unit Creation', bg="blue",
+          font='17', fg="white", width=430).pack()
+    global unit_item_name
+    unit_name = Label(unitscrn, text='Name:').place(x=20, y=70)
+    unit_item_name = ['Compound','Simple']
+    unientry = ttk.Combobox(stock_itemscrn, value=stockk_under2, width=35)
+    stock_entry7.place(x=210, y=220)
+                         
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
 
