@@ -68,11 +68,11 @@ def create_master():
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=240)
     Button(screen1, text='Unit', command=unit, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260)
-    Button(screen1, text='Godown', command='', fg='black', font=(
+    Button(screen1, text='Godown', command=godown, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=280)
     Label(screen1, text='Statutory Details',
           font=('Arial', 11), fg="black").place(x=10, y=310)
-    Button(screen1, text='GST Details', command='', fg='black', font=(
+    Button(screen1, text='GST Details', command=gst_details, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
     Button(screen1, text='PAN/CIN Details', command='', fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=340)
@@ -379,12 +379,72 @@ def unit() :
     unitscrn.geometry('500x300')
     Label(unitscrn, text='Unit Creation', bg="blue",
           font='17', fg="white", width=430).pack()
-    global unit_item_name
-    unit_name = Label(unitscrn, text='Name:').place(x=20, y=70)
+    global unientry, unit_symp, unit_formal, unit_qntity, unit_plces
+    unit_name = Label(unitscrn, text='Type:').place(x=20, y=70)
     unit_item_name = ['Compound','Simple']
-    unientry = ttk.Combobox(stock_itemscrn, value=stockk_under2, width=35)
-    stock_entry7.place(x=210, y=220)
-                         
+    unientry = ttk.Combobox(unitscrn, value=unit_item_name, width=35)
+    unientry.place(x=210, y=70)
+    unit_sym = Label(unitscrn, text='Symbol:').place(x=20, y=100)
+    unit_symp = StringVar()
+    unit_entry1 = Entry(unitscrn, textvariable=unit_symp,
+                         width=38).place(x=210, y=100)
+    unit_foml = Label(unitscrn, text='Formal Name:').place(x=20, y=130)
+    unit_formal = StringVar()
+    unit_entry2 = Entry(unitscrn, textvariable=unit_formal,
+                         width=38).place(x=210, y=130)
+    unit_qnty = Label(unitscrn, text='Unit Quantity Code:').place(x=20, y=160)
+    unit_qntity = StringVar()
+    unit_entry2 = Entry(unitscrn, textvariable=unit_qntity,
+                         width=38).place(x=210, y=160)
+    unit_plcs = Label(unitscrn, text='No of decimal places:').place(x=20, y=190)
+    unit_plces = IntVar()
+    unit_entry3 = Entry(unitscrn, textvariable=unit_plces,
+                         width=38).place(x=210, y=190)
+    
+    unit_itembtn = Button(unitscrn, text='Submit', width=13, fg="white", font=(
+        "arial", 13), bg='green', activebackground="yellow", command=unit_submit, relief=GROOVE).place(x=220, y=230)
+
+def unit_submit():
+    unit_typ = unientry.get()
+    unit_symbol = unit_symp.get()
+    unit_formall = unit_formal.get()
+    unit_quntity = unit_qntity.get()
+    unit_deci = unit_plces.get()
+    sql = 'INSERT INTO unit(type,symbol,formal_name,quantity_code,no_of_decimal_places) VALUES(%s,%s,%s,%s,%s)'
+    val = (unit_typ, unit_symbol, unit_formall, unit_quntity, unit_deci)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('Unit Successfully Created')
+
+def godown():
+    godownscrn = Toplevel(root)
+    godownscrn.title('CREATE')
+    godownscrn.geometry('500x300')
+    Label(godownscrn, text='Godown Creation', bg="blue",
+          font='17', fg="white", width=430).pack()
+    global gdwn_nme,gdwn_under
+    gdown_name = Label(godownscrn, text='Name:').place(x=20, y=70)
+    gdwn_nme = StringVar()
+    gdwn_entry1 = Entry(godownscrn, textvariable=gdwn_nme,
+                         width=38).place(x=190, y=70)
+    gdown_under = Label(godownscrn, text='Under:').place(x=20, y=100)
+    gdwn_under = StringVar()
+    gdwn_entry2 = Entry(godownscrn, textvariable=gdwn_under,
+                         width=38).place(x=190, y=100)                
+    gd_btn = Button(godownscrn, text='Submit', width=13, fg="white", font=(
+        "arial", 13), bg='green', activebackground="yellow", command=gdwn_submit, relief=GROOVE).place(x=220, y=150)
+
+def gdwn_submit():
+    gd_name = gdwn_nme.get()
+    gd_under = gdwn_under.get()
+    sql = 'INSERT INTO godown(name,under) VALUES(%s,%s)'
+    val = (gd_name, gd_under)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('Godown Successfully Created')
+    
+
+
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
 

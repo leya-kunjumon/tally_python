@@ -42,5 +42,11 @@ mycursor=mydb.cursor()
 
 # mycursor.execute(
 #     "create table stock_item(stock_itemid int AUTO_INCREMENT,stock_id int,name varchar(200),units varchar(200),gst_applicable varchar(200),gst_details varchar(200),supply_type varchar(200), PRIMARY KEY(stock_itemid),FOREIGN KEY(stock_id) REFERENCES stockGroup(stock_id) ON DELETE CASCADE)")
+
+# mycursor.execute(
+#     "create table unit(unit_id int AUTO_INCREMENT,type varchar(200),symbol varchar(100),formal_name varchar(200),quantity_code varchar(200),no_of_decimal_places int,PRIMARY KEY(unit_id))")
+
+# mycursor.execute(
+#     "create table godown(gd_id int AUTO_INCREMENT,name varchar(200),under varchar(200),PRIMARY KEY(gd_id))")
         
-# mycursor.execute('drop table stock_item')
+# mycursor.execute('drop table unit')
