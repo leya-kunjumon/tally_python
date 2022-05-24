@@ -48,5 +48,8 @@ mycursor=mydb.cursor()
 
 # mycursor.execute(
 #     "create table godown(gd_id int AUTO_INCREMENT,name varchar(200),under varchar(200),PRIMARY KEY(gd_id))")
+
+# mycursor.execute(
+#     "create table gst(gst_id int AUTO_INCREMENT,state varchar(200),bill_applicable varchar(100),reg_type varchar(200),applicable_from DATE,assessee varchar(100),threshold_limit_includes varchar(200),gst_applicable DATE,threshold_limit int,periodicity varchar(200),applcble_intrastate varchar(100),cess_applicable varchar(100),threshold_limit1 int,gst_details varchar(100),print_bill varchar(100),advance_receipts varchar(100),invoice_applicable varchar(100),reverse_charge varchar(100),gst_class varchar(100),bond_details varchar(100),PRIMARY KEY(gst_id))")
         
 # mycursor.execute('drop table unit')

@@ -13,9 +13,6 @@ import tkcalendar
 from tkcalendar import DateEntry
 from PIL import ImageTk, Image
 
-
-
-    
 root = Tk()
 root.geometry("1360x730")
 root.resizable(True, True)
@@ -73,9 +70,9 @@ def create_master():
     Label(screen1, text='Statutory Details',
           font=('Arial', 11), fg="black").place(x=10, y=310)
     Button(screen1, text='GST Details', command=gst_details, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
-    Button(screen1, text='PAN/CIN Details', command='', fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=340)
+    Button(screen1, text='PAN/CIN Details', command='', fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
     
 def ledger():
     screen2 = Toplevel(root)
@@ -443,8 +440,128 @@ def gdwn_submit():
     mydb.commit()
     messagebox.showinfo('Godown Successfully Created')
     
+def gst_details():
+    gstscrn = Toplevel(root)
+    gstscrn.title('CREATE')
+    gstscrn.geometry('850x650')
+    gstscrn.resizable(False, False)
+    Label(gstscrn, text='Gst Details', bg="blue",
+          font='17', fg="white", width=430).pack()
+    Label(gstscrn, text='Gst Registration Details',
+          font='14', fg="black").place(x=20,y=70)
+    Label(gstscrn, text='Invoice Features',
+          font='14', fg="black").place(x=440,y=70)
+    global gst_nme, gst_entry2, gst_entry3, gst_entry4, gst_entry5, gst_entry6, gst_entry7,gst_thlmt,gst_entry9,gst_entry10,gst_lmt,gst_entry12,gst_entry13,gst_entry14,gst_entry15,gst_entry16,gst_entry17,gst_entry18,gst_entry19
+    gst_name = Label(gstscrn, text='State:').place(x=20, y=110)
+    gst_nme = StringVar()
+    gst_entry1 = Entry(gstscrn, textvariable=gst_nme,
+                        width=40).place(x=150, y=110)
+    gst_bill = Label(gstscrn, text='e-way Bill applicable:').place(x=440, y=110)
+    gst_applcble = ['Yes', 'No']
+    gst_entry2 = ttk.Combobox(gstscrn, value=gst_applcble, width=33)
+    gst_entry2.place(x=580, y=110)
+    gst_typ = Label(gstscrn, text='Registration type:').place(x=20, y=140)
+    gst_type = ['Composition', 'Regular']
+    gst_entry3 = ttk.Combobox(gstscrn, value=gst_type, width=37)
+    gst_entry3.place(x=150, y=140)
+    gst_applcble = Label(gstscrn, text='applicable from:').place(x=440, y=140)
+    gst_entry4 = DateEntry(gstscrn, width=33)
+    gst_entry4.place(x=580, y=140)
+    gst_other = Label(gstscrn, text='Assessee of other\ntemptory:').place(x=20, y=170)
+    gst_othertem = ['Yes', 'No']
+    gst_entry5 = ttk.Combobox(gstscrn, value=gst_othertem, width=37)
+    gst_entry5.place(x=150, y=170)
+    gst_thrshold = Label(gstscrn, text='Threshold limit includes:').place(x=440, y=170)
+    gst_limit = ['Invoice value', 'Taxable and exempt good value','Taxable good value']
+    gst_entry6 = ttk.Combobox(gstscrn, value=gst_limit, width=33)
+    gst_entry6.place(x=580, y=170)
+    gst_appfrom = Label(gstscrn, text='GST applicable from:').place(x=20, y=205)
+    gst_entry7 = DateEntry(gstscrn, width=37)
+    gst_entry7.place(x=150, y=205)
+    gst_thrslmt = Label(gstscrn, text='Threshold limit:').place(x=440, y=205)
+    gst_thlmt = IntVar()
+    gst_entry8 = Entry(gstscrn, textvariable=gst_thlmt,
+                        width=36).place(x=580, y=205)
+    Label(gstscrn, text='GSTN/UIN:').place(x=20, y=225)
+    gst_un = Label(gstscrn, text='Periodicity of GSTR1:').place(x=20, y=250)
+    gst_untem = ['Monthly', 'Quartly']
+    gst_entry9 = ttk.Combobox(gstscrn, value=gst_untem, width=37)
+    gst_entry9.place(x=150, y=250)
+    gst_intra = Label(gstscrn, text='Applicable for intrastate:').place(x=440, y=250)
+    gst_state = ['Yes', 'No']
+    gst_entry10 = ttk.Combobox(gstscrn, value=gst_state, width=33)
+    gst_entry10.place(x=580, y=250)
+    Label(gstscrn, text='Additional Features').place(x=20, y=280)
+    gst_print = Label(gstscrn, text='Threshold limit:').place(x=440, y=280)
+    gst_lmt = IntVar()
+    gst_entry11 = Entry(gstscrn, textvariable=gst_lmt,
+                        width=36).place(x=580, y=280)
+    gst_cess = Label(gstscrn, text='Kerala Flood Cess \napplicable:').place(x=20, y=310)
+    gst_cessap = ['Yes', 'No']
+    gst_entry12 = ttk.Combobox(gstscrn, value=gst_cessap, width=37)
+    gst_entry12.place(x=150, y=310)
+    gst_prnt = Label(gstscrn, text='Print e-way bill with \ninvoice:').place(x=440, y=310)
+    gst_pt = ['Yes', 'No']
+    gst_entry13 = ttk.Combobox(gstscrn, value=gst_pt, width=33)
+    gst_entry13.place(x=580, y=310)
+    gst_set = Label(gstscrn, text='Set/alter gst rate details:').place(x=20, y=360)
+    gst_cessap = ['Yes', 'No']
+    gst_entry14 = ttk.Combobox(gstscrn, value=gst_cessap, width=37)
+    gst_entry14.place(x=150, y=360)
+    gst_invce = Label(gstscrn, text='e-invoicing applicable:').place(x=440, y=360)
+    gst_invoice = ['Yes', 'No']
+    gst_entry15 = ttk.Combobox(gstscrn, value=gst_invoice, width=33)
+    gst_entry15.place(x=580, y=360)
+    gst_tax = Label(
+        gstscrn, text='Enable tax liability on \nadvance receipts:').place(x=20, y=390)
+    gst_taxneed = ['Yes', 'No']
+    gst_entry16 = ttk.Combobox(gstscrn, value=gst_taxneed, width=37)
+    gst_entry16.place(x=150, y=390)
+    gst_tax = Label(
+        gstscrn, text='Enable tax liability on \nreverse charge:').place(x=20, y=430)
+    gst_retaxneed = ['Yes', 'No']
+    gst_entry17 = ttk.Combobox(gstscrn, value=gst_retaxneed, width=37)
+    gst_entry17.place(x=150, y=430)
+    gst_taxclas = Label(
+        gstscrn, text='Enable gst \nclassifications:').place(x=20, y=470)
+    gst_cls = ['Yes', 'No']
+    gst_entry18 = ttk.Combobox(gstscrn, value=gst_cls, width=37)
+    gst_entry18.place(x=150, y=470)
+    gst_detls = Label(
+        gstscrn, text='Provide LUT/Bond \ndetails:').place(x=20, y=510)
+    gst_details = ['Yes', 'No']
+    gst_entry19 = ttk.Combobox(gstscrn, value=gst_details, width=37)
+    gst_entry19.place(x=150, y=510)
+    gst_btn = Button(gstscrn, text='Submit', width=16, fg="white", font=(
+        "arial", 13), bg='green', activebackground="yellow", command=gst_submit, relief=GROOVE).place(x=380, y=560)
 
-
+def gst_submit():
+    gstt_state = gst_nme.get()
+    gstt_applcble = gst_entry2.get()
+    gstt_type = gst_entry3.get()
+    gstt_appfrom = gst_entry4.get_date()
+    gstt_assesee = gst_entry5.get()
+    gstt_threshold = gst_entry6.get()
+    gstt_applfrom = gst_entry7.get_date()
+    gstt_threshold1 = gst_thlmt.get()
+    gstt_periodcity = gst_entry9.get()
+    gstt_intrastate = gst_entry10.get()
+    gstt_threshold2 = gst_lmt.get()
+    gstt_cess = gst_entry12.get()
+    gstt_print = gst_entry13.get()
+    gstt_detls = gst_entry14.get()
+    gstt_invoice = gst_entry15.get()
+    gstt_advnce = gst_entry16.get()
+    gstt_revrse = gst_entry17.get()
+    gstt_cls = gst_entry18.get()
+    gstt_bond = gst_entry19.get()
+    sql = 'INSERT INTO gst(state,bill_applicable,reg_type,applicable_from,assessee,threshold_limit_includes,gst_applicable,threshold_limit,periodicity,applcble_intrastate,cess_applicable,threshold_limit1,gst_details,print_bill,advance_receipts,invoice_applicable,reverse_charge,gst_class,bond_details) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (gstt_state,gstt_applcble,gstt_type,
+           gstt_appfrom,gstt_assesee,gstt_threshold,gstt_applfrom,gstt_threshold1,gstt_periodcity,gstt_intrastate,gstt_cess,gstt_threshold2,gstt_detls, gstt_print, gstt_advnce,gstt_invoice,gstt_revrse,gstt_cls,gstt_bond)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('gst Successfully Created')
+    
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
 
