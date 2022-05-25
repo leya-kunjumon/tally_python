@@ -51,5 +51,10 @@ mycursor=mydb.cursor()
 
 # mycursor.execute(
 #     "create table gst(gst_id int AUTO_INCREMENT,state varchar(200),bill_applicable varchar(100),reg_type varchar(200),applicable_from DATE,assessee varchar(100),threshold_limit_includes varchar(200),gst_applicable DATE,threshold_limit int,periodicity varchar(200),applcble_intrastate varchar(100),cess_applicable varchar(100),threshold_limit1 int,gst_details varchar(100),print_bill varchar(100),advance_receipts varchar(100),invoice_applicable varchar(100),reverse_charge varchar(100),gst_class varchar(100),bond_details varchar(100),PRIMARY KEY(gst_id))")
-        
+
+# mycursor.execute(
+#     "create table PAN(PAN_id int AUTO_INCREMENT,PAN_NUMBER varchar(200),PRIMARY KEY(PAN_id))") 
+
+# mycursor.execute("create table mastergroup(grp_id int AUTO_INCREMENT,name varchar(200),grp_under varchar(200),grp_ledger varchar(100),balance_reporting varchar(100),calculn_used varchar(100),method varchar(200),PRIMARY KEY(grp_id))")
+
 # mycursor.execute('drop table unit')

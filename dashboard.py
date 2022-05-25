@@ -45,7 +45,7 @@ def create_master():
           font='17', fg="white", width=430).pack()
     Label(screen1, text='Accounting Masters',
           font=('Arial', 11), fg="black").place(x=10, y=50)
-    Button(screen1, text='Group', command='', fg='black', font=(
+    Button(screen1, text='Group', command=group, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=70)
     Button(screen1, text='Ledger', command=ledger, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=90)
@@ -71,8 +71,54 @@ def create_master():
           font=('Arial', 11), fg="black").place(x=10, y=310)
     Button(screen1, text='GST Details', command=gst_details, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=340)
-    Button(screen1, text='PAN/CIN Details', command='', fg='black', font=(
+    Button(screen1, text='PAN/CIN Details', command=Pan_details, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
+        
+def group():
+    grpscrn = Toplevel(root)
+    grpscrn.title('CREATE')
+    grpscrn.geometry('600x500')
+    Label(grpscrn, text='Group Creation', bg="blue",
+          font='17', fg="white", width=430).pack()
+    global grpname, grpcmb, grpcmb1, grpcmb2, grpcmb3,grpcmb4
+    gname = Label(grpscrn, text='Name:').place(x=20, y=70)
+    grpname = StringVar()
+    grpentry1 = Entry(grpscrn, textvariable=grpname,
+                   width=38).place(x=250, y=70)
+    gunder = Label(grpscrn, text='Under:').place(x=20, y=100)
+    grp_under = ['Bank Accounts','Bank OCC A/c','Bank OD A/c','Branch/Divisions','Capital Account','Cash-in-Hand','Current Assets','Current Liabilities','Deposits(Asset)','Direct Expenses','Direct Income','Duties & Taxes','Expenses(Direct)','Expenses(Indirect)','Fixed Assets','Income(Direct)','Income(Indirect)','Indirect Expenses','Indirect Incomes','Investments','Loans & Advances(Asset)','Loans(Liability)','Misc Expenses(ASSET)','Provisions','Purchase Account','Reserves & Surplus','Retained Earnings','Sales Accounts','Secured Loans','Stock-in-Hand','Sundry Creditors','Sundry Debitors','Suspense A/c','Unsecured Loans']
+    grpcmb = ttk.Combobox(grpscrn, value=grp_under, width=35)
+    grpcmb.place(x=250, y=100)
+    grpledg = Label(grpscrn, text='Group behaves like a ledger:').place(x=20, y=130)
+    grp_ledg = ['Yes','No']
+    grpcmb1 = ttk.Combobox(grpscrn, value=grp_ledg, width=35)
+    grpcmb1.place(x=250, y=130)
+    grpnet = Label(grpscrn, text='Net Debit/Credit Balances for reporting:').place(x=20, y=160)
+    grp_nett = ['Yes','No']
+    grpcmb2 = ttk.Combobox(grpscrn, value=grp_nett, width=35)
+    grpcmb2.place(x=250, y=160)
+    grpcalc = Label(grpscrn, text='Used for Calculation:').place(x=20, y=190)
+    grp_calcu = ['Yes','No']
+    grpcmb3 = ttk.Combobox(grpscrn, value=grp_calcu, width=35)
+    grpcmb3.place(x=250, y=190)
+    grpmthd = Label(grpscrn, text='Method to allocate when used in purchase \ninvoice:').place(x=20, y=220)
+    grp_method = ['Applicable','Not Applicable']
+    grpcmb4 = ttk.Combobox(grpscrn, value=grp_method, width=35)
+    grpcmb4.place(x=250, y=220)
+    grp_btn = Button(grpscrn, text='Submit', width=20, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=grp_submit,relief=GROOVE).place(x=160, y=260)
+    
+def grp_submit():
+    grp_name = grpname.get()
+    grp_under = grpcmb.get()
+    grp_ledger = grpcmb1.get()
+    grp_blnce = grpcmb2.get()
+    grp_calcn = grpcmb3.get()
+    grp_method = grpcmb4.get()
+    sql = 'INSERT INTO mastergroup(name,grp_under,grp_ledger,balance_reporting ,calculn_used,method)  VALUES(%s,%s,%s,%s,%s,%s)'
+    val = (grp_name,grp_under,grp_ledger,grp_blnce,grp_calcn,grp_method)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('Create Group Successfully')
     
 def ledger():
     screen2 = Toplevel(root)
@@ -80,28 +126,33 @@ def ledger():
     screen2.geometry('700x500')
     Label(screen2, text='Ledger Creation', bg="blue",
           font='17', fg="white", width=430).pack()
+    global ledg_name,cmb,cmb1, cmb2, cmb3,cmb4
     lname = Label(screen2, text='Name:').place(x=20, y=70)
     ledg_name = StringVar()
     entry1 = Entry(screen2, textvariable=ledg_name,
                    width=38).place(x=130, y=70)
     under = Label(screen2, text='Under:').place(x=20, y=100)
     ledger_grp = ['Bank Accounts','Bank OCC A/c','Bank OD A/c','Branch/Divisions','Capital Account','Cash-in-Hand','Current Assets','Current Liabilities','Deposits(Asset)','Direct Expenses','Direct Income','Duties & Taxes','Expenses(Direct)','Expenses(Indirect)','Fixed Assets','Income(Direct)','Income(Indirect)','Indirect Expenses','Indirect Incomes','Investments','Loans & Advances(Asset)','Loans(Liability)','Misc Expenses(ASSET)','Provisions','Purchase Account','Reserves & Surplus','Retained Earnings','Sales Accounts','Secured Loans','Stock-in-Hand','Sundry Creditors','Sundry Debitors','Suspense A/c','Unsecured Loans']
-    cmb = ttk.Combobox(screen2, value=ledger_grp, width=35).place(x=130, y=100)
+    cmb = ttk.Combobox(screen2, value=ledger_grp, width=35)
+    cmb.place(x=130, y=100)
     type = Label(screen2, text='Type Of Ledger:').place(x=20, y=130)
     ledger_typ = ['Not Applicable','Discount','Invoice Rounding']
-    cmb1 = ttk.Combobox(screen2, value=ledger_typ, width=35).place(x=130, y=130)
+    cmb1 = ttk.Combobox(screen2, value=ledger_typ, width=35)
+    cmb1.place(x=130, y=130)
     st_details = Label(screen2, text='Statutory Details',font=('arial',11)).place(x=20, y=180)
     gst_applcbl = Label(screen2, text='Is GST Applicable:',).place(x=20, y=210)
     gst_combo = ['Applicable', 'Not Applicable', 'Undefined']
-    cmb2 = ttk.Combobox(screen2, value=gst_combo, width=35).place(x=135, y=210)
+    cmb2 = ttk.Combobox(screen2, value=gst_combo, width=35)
+    cmb2.place(x=135, y=210)
     set = Label(screen2, text='Set/Alter GST Details:').place(x=20, y=240)
     set_combo = ['Yes', 'No']
-    cmb3 = ttk.Combobox(screen2, value=set_combo, width=35).place(x=135, y=240)
-    
+    cmb3 = ttk.Combobox(screen2, value=set_combo, width=35)
+    cmb3.place(x=135, y=240)
     lname = Label(screen2, text='Name:').place(x=20, y=70)
     supply_typ = Label(screen2, text='Type Of Supply:').place(x=20, y=270)
     supply_combo = ['Goods', 'Services']
-    cmb4 = ttk.Combobox(screen2, value=supply_combo, width=35).place(x=135, y=270)
+    cmb4 = ttk.Combobox(screen2, value=supply_combo, width=35)
+    cmb4.place(x=135, y=270)
     
     ledger_btn = Button(screen2, text='Submit', width=20, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=ledger_submit,relief=GROOVE).place(x=160, y=310)
 
@@ -562,6 +613,29 @@ def gst_submit():
     mydb.commit()
     messagebox.showinfo('gst Successfully Created')
     
+def Pan_details():
+    PANscrn = Toplevel(root)
+    PANscrn.title('CREATE')
+    PANscrn.geometry('390x270')
+    PANscrn.resizable(False, False)
+    Label(PANscrn, text='PAN/CIN Details', bg="blue",
+          font='17', fg="white", width=430).pack()
+    global pan_nme
+    pan_name = Label(PANscrn, text='PAN/Income Tax No:').place(x=20, y=70)
+    pan_nme = StringVar()
+    pan_entry1 = Entry(PANscrn, textvariable=pan_nme,
+                        width=33).place(x=150, y=70)
+    pan_btn = Button(PANscrn, text='Submit', width=13, fg="white", font=(
+        "arial", 13), bg='green', activebackground="yellow", command=PAN_submit, relief=GROOVE).place(x=150, y=140)
+        
+def PAN_submit():
+    pan_no = pan_nme.get()
+    sql = 'INSERT INTO PAN(PAN_NUMBER) VALUES(%s)'
+    val = (pan_no,)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('PAN Details Successfully Created')
+
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
 
