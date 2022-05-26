@@ -123,10 +123,10 @@ def grp_submit():
 def ledger():
     screen2 = Toplevel(root)
     screen2.title('CREATE')
-    screen2.geometry('700x500')
+    screen2.geometry('700x630')
     Label(screen2, text='Ledger Creation', bg="blue",
           font='17', fg="white", width=430).pack()
-    global ledg_name,cmb,cmb1, cmb2, cmb3,cmb4
+    global ledg_name,cmb,cmb1, cmb2, cmb3,cmb4,ledg_nme,ledg_adrs,ledg_state,ledg_country,ledg_pincod,cmb5,ledg_intax
     lname = Label(screen2, text='Name:').place(x=20, y=70)
     ledg_name = StringVar()
     entry1 = Entry(screen2, textvariable=ledg_name,
@@ -148,17 +148,54 @@ def ledger():
     set_combo = ['Yes', 'No']
     cmb3 = ttk.Combobox(screen2, value=set_combo, width=35)
     cmb3.place(x=135, y=240)
-    lname = Label(screen2, text='Name:').place(x=20, y=70)
     supply_typ = Label(screen2, text='Type Of Supply:').place(x=20, y=270)
     supply_combo = ['Goods', 'Services']
     cmb4 = ttk.Combobox(screen2, value=supply_combo, width=35)
     cmb4.place(x=135, y=270)
-    
-    ledger_btn = Button(screen2, text='Submit', width=20, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=ledger_submit,relief=GROOVE).place(x=160, y=310)
+    Label(screen2, text='Mailing Details',
+          font='17', fg="black").place(x=20,y=300)
+    led_name = Label(screen2, text='Name:').place(x=20, y=330)
+    ledg_nme = StringVar()
+    entry2 = Entry(screen2, textvariable=ledg_nme,
+                   width=38).place(x=130, y=330)
+    led_addrss = Label(screen2, text='Address:').place(x=20, y=360)
+    ledg_adrs = StringVar()
+    entry3 = Entry(screen2, textvariable=ledg_adrs,
+                   width=38).place(x=130, y=360)
+    led_state = Label(screen2, text='State:').place(x=20, y=390)
+    ledg_state = StringVar()
+    entry4 = Entry(screen2, textvariable=ledg_state,
+                   width=38).place(x=130, y=390)
+    led_country = Label(screen2, text='Country:').place(x=20, y=420)
+    ledg_country = StringVar()
+    entry5 = Entry(screen2, textvariable=ledg_country,
+                   width=38).place(x=130, y=420)
+    led_pincode = Label(screen2, text='Pincode:').place(x=20, y=450)
+    ledg_pincod = StringVar()
+    entry6 = Entry(screen2, textvariable=ledg_pincod,
+                   width=38).place(x=130, y=450)
+    Label(screen2, text='Banking Details',
+          font='17', fg="black").place(x=20,y=480)
+    led_bnk = Label(screen2, text='Provide Bank Details:').place(x=20, y=510)
+    ledg_bnkdetail = ['Yes','No']
+    cmb5 = ttk.Combobox(screen2, value=ledg_bnkdetail, width=35)
+    cmb5.place(x=135, y=510)
+    Label(screen2, text='Tax Registration Details:',
+          font='17', fg="black").place(x=20,y=540)
+    led_tax = Label(screen2, text='PAN/IN no:').place(x=20, y=570)
+    ledg_intax = StringVar()
+    entry7 = Entry(screen2, textvariable=ledg_intax,
+                   width=38).place(x=130, y=570)
+    ledger_btn = Button(screen2, text='Submit', width=18, fg="white", font=("arial", 13),bg='green',activebackground="yellow",command=ledger_submit,relief=GROOVE).place(x=160, y=600)
 
 def ledger_submit():
-    pass
-
+    ledg_nmee = ledg_name.get()
+    ledg_cmb = cmb.get()
+    ledg_cmb1 = cmb1.get()
+    ledg_cmb2 = cmb2.get()
+    ledg_cmb3 = cmb3.get()
+    ledg_cmb3 = cmb4.get()
+    
 def currency_creation():
     currncy_scrn = Toplevel(root)
     currncy_scrn .title('CREATE')
