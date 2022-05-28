@@ -45,6 +45,8 @@ def create_master():
           font='17', fg="white", width=430).pack()
     Label(screen1, text='Accounting Masters',
           font=('Arial', 11), fg="black").place(x=10, y=50)
+    Button(screen1, text='Change Company', command=change_company, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=308, y=50)
     Button(screen1, text='Group', command=group, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=70)
     Button(screen1, text='Ledger', command=ledger, fg='black', font=(
@@ -74,6 +76,21 @@ def create_master():
     Button(screen1, text='PAN/CIN Details', command=Pan_details, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
         
+def change_company():
+    changescrn = Toplevel(root)
+    changescrn.title('CREATE')
+    changescrn.geometry('380x300')
+    Label(changescrn, text='Change Company', bg="blue",
+          font='17', fg="white", width=430).pack()
+    global comcmb
+    comname = Label(changescrn, text='Name:').place(x=20, y=70)
+    comcmb = ttk.Combobox(changescrn, width=35)
+    comcmb.place(x=130, y=70)
+    mycursor.execute('select name from company')
+    for i in mycursor.fetchall():
+        comcmb.insert(0, i[0])
+    chng_btn = Button(changescrn, text='Submit', width=17, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=grp_submit,relief=GROOVE).place(x=140, y=120)
+
 def group():
     grpscrn = Toplevel(root)
     grpscrn.title('CREATE')
@@ -676,8 +693,10 @@ def PAN_submit():
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
 
+def master_alter():
+    pass
 b2 = Button(root, text="Alter", fg="black", activebackground="yellow",
-            bg="silver", width=20, height=1, command=create_master).place(x=830, y=210)
+            bg="silver", width=20, height=1, command=master_alter).place(x=830, y=210)
 b3 = Button(root, text="Chart Of Accounts", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1).place(x=830, y=240)
 mstrs2 = Label(root, text="Transactions", bg="skyblue",
