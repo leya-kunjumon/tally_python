@@ -170,7 +170,7 @@ def ledger():
     cmb4 = ttk.Combobox(screen2, value=supply_combo, width=35)
     cmb4.place(x=135, y=270)
     Label(screen2, text='Mailing Details',
-          font='17', fg="black").place(x=20,y=300)
+          font='14', fg="black").place(x=20,y=300)
     led_name = Label(screen2, text='Name:').place(x=20, y=330)
     ledg_nme = StringVar()
     entry2 = Entry(screen2, textvariable=ledg_nme,
@@ -192,13 +192,13 @@ def ledger():
     entry6 = Entry(screen2, textvariable=ledg_pincod,
                    width=38).place(x=130, y=450)
     Label(screen2, text='Banking Details',
-          font='17', fg="black").place(x=20,y=480)
+          font='14', fg="black").place(x=20,y=480)
     led_bnk = Label(screen2, text='Provide Bank Details:').place(x=20, y=510)
     ledg_bnkdetail = ['Yes','No']
     cmb5 = ttk.Combobox(screen2, value=ledg_bnkdetail, width=35)
     cmb5.place(x=135, y=510)
     Label(screen2, text='Tax Registration Details:',
-          font='17', fg="black").place(x=20,y=540)
+          font='14', fg="black").place(x=20,y=540)
     led_tax = Label(screen2, text='PAN/IN no:').place(x=20, y=570)
     ledg_intax = StringVar()
     entry7 = Entry(screen2, textvariable=ledg_intax,
@@ -211,7 +211,18 @@ def ledger_submit():
     ledg_cmb1 = cmb1.get()
     ledg_cmb2 = cmb2.get()
     ledg_cmb3 = cmb3.get()
-    ledg_cmb3 = cmb4.get()
+    if ledg_cmb3 == 'Yes':
+          gstdet_scrn = Toplevel(root)
+          gstdet_scrn.title('CREATE')
+          gstdet_scrn.geometry('600x450')
+    ledg_cmb4 = cmb4.get()
+    ledg_namee = ledg_nme.get()
+    ledg_addrss = ledg_adrs.get()
+    ledg_stte = ledg_state.get()
+    ledg_cuntry =  ledg_country.get()
+    ledg_pncode = ledg_pincod.get()
+    ledg_cmb5 = cmb5.get()
+    ledg_itax = ledg_intax.get()
     
 def currency_creation():
     currncy_scrn = Toplevel(root)
@@ -694,7 +705,44 @@ b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
 
 def master_alter():
-    pass
+    altscrn = Toplevel(root)
+    altscrn.title('ALTER')
+    altscrn.geometry('500x500')
+    Label(altscrn, text='List Of Masters', bg="blue",
+          font='17', fg="white", width=430).pack()
+    Label(altscrn, text='Accounting Masters',
+          font=('Arial', 11), fg="black").place(x=10, y=50)
+    Button(altscrn, text='Change Company', command=change_company, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=308, y=50)
+    Button(altscrn, text='Group', command=group, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=70)
+    Button(altscrn, text='Ledger', command=ledger, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=90)
+    Button(altscrn, text='Currency', command=currency_creation, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=110)
+    Button(altscrn, text='Rate Of Exchange', command='', fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=130)
+    Button(altscrn, text='Voucher Type', command=voucher_creation, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=150)
+    Label(altscrn, text='Inventory Masters',
+          font=('Arial', 11), fg="black").place(x=10, y=180)
+    Button( altscrn, text='Stock Group', command=stock_creation, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=200)
+    Button(altscrn, text='Stock Catagory', command=stock_catagory, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=220)
+    Button(altscrn, text='Stock Item', command=stock_item, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=240)
+    Button(altscrn, text='Unit', command=unit, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260)
+    Button(altscrn, text='Godown', command=godown, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=280)
+    Label(altscrn, text='Statutory Details',
+          font=('Arial', 11), fg="black").place(x=10, y=310)
+    Button(altscrn, text='GST Details', command=gst_details, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=340)
+    Button(altscrn, text='PAN/CIN Details', command=Pan_details, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
+        
 b2 = Button(root, text="Alter", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=master_alter).place(x=830, y=210)
 b3 = Button(root, text="Chart Of Accounts", fg="black", activebackground="yellow",
