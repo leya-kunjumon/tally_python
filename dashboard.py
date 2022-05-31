@@ -84,11 +84,15 @@ def change_company():
           font='17', fg="white", width=430).pack()
     global comcmb
     comname = Label(changescrn, text='Name:').place(x=20, y=70)
+    sql = "SELECT name FROM company"
+    mycursor.execute(sql,)
+    change_cpny = mycursor.fetchall()
+    chng_cmpny = []
+    for i in change_cpny:
+        chng_cmpny.append(i[0])
     comcmb = ttk.Combobox(changescrn, width=35)
     comcmb.place(x=130, y=70)
-    mycursor.execute('select name from company')
-    for i in mycursor.fetchall():
-        comcmb.insert(0, i[0])
+    comcmb['values'] = chng_cmpny
     chng_btn = Button(changescrn, text='Submit', width=17, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=grp_submit,relief=GROOVE).place(x=140, y=120)
 
 def group():
@@ -137,6 +141,56 @@ def grp_submit():
     mydb.commit()
     messagebox.showinfo('Create Group Successfully')
     
+def gstfun(event):
+    ledg_cmb3 = cmb3.get()
+    if ledg_cmb3 == 'Yes':
+        gstscreen = Toplevel()
+        gstscreen.title('CREATE')
+        gstscreen.geometry('500x450')
+        Label(gstscreen, text='GST details for Ledger',
+          font='17', fg="black", width=430).pack()
+        gstvar = Label(gstscreen, text='',
+          font='17', fg="black", width=430)
+        gstvar.pack()
+        gstvar.config(text=ledg_name.get())
+        global gcmb1, gcmb2,intx,ctx
+        gstnme  = Label(gstscreen, text='Nature of Transaction:').place(x=20, y=70)
+        gcmb1 = ttk.Combobox(gstscreen, width=35)
+        gcmb1.place(x=210,y=70)
+        gcmb1['values'] = ['Not Applicable','Branch Transfer Inward','Imports Exempt','Imports Nil rated','Imports Taxable','Interstate Purchase Exempt','Interstate Purchase from Unregisterd Dealer-Exempt','Interstate Purchase from Unregisterd Dealer-Nil Rated','Interstate Purchase from Unregisterd Dealer-Services','Interstate Purchase from Unregisterd Dealer-Taxable','Interstate Purchase Nil Rated','Interstate Purchase Taxable','Interstate Purchase Deemed Exports-Exempt','Interstate Purchase Deemed Exports-Nil Rated','Interstate Purchase Deemed Exports-Taxable','Purchase Deemed Exports-Exempt','Purchase Deemed Exports-Nil Rated','Purchase Deemed Exports-Taxable','Purchase Exempt','Purchase from Composition Dealer','Purchase from SEZ-Exempt','Purchase from SEZ-LUT/Bond','Purchase from SEZ-Nil Rated','Purchase from SEZ-Taxable','Purchase from SEZ(Without Bill of Entry)-Exempt','Purchase from SEZ(Without Bill of Entry)-Nil Rated','Purchase from SEZ(Without Bill of Entry)-Taxable','Purchase from Unregisterd Dealer-Exempt','Purchase from Unregisterd Dealer-Nil Rated','Purchase from Unregisterd Dealer-Taxable','Purchase Nil Rated','Purchase Taxable']
+        Label(gstscreen, text='Tax Details',).place(x=20, y=100)
+        gsttx = Label(gstscreen, text='Taxability:').place(x=20, y=140)
+        gcmb2 = ttk.Combobox(gstscreen, width=35)
+        gcmb2.place(x=210,y=140)
+        gcmb2['values'] = ['Unknown','Exempt','Nil Rated','Taxable']
+        Label(gstscreen, text='Tax Type',).place(x=20, y=170)
+        Label(gstscreen, text='Rate',).place(x=210, y=170)
+        inttax  = Label(gstscreen, text='Integrated Tax:').place(x=20, y=200)
+        intx = StringVar()
+        entry1 = Entry(gstscreen, textvariable=intx,
+                   width=38)
+        entry1.place(x=210, y=200)
+        entry1.insert(0,'%')
+        cess = Label(gstscreen, text='Cess:').place(x=20, y=230)
+        ctx = StringVar()
+        entry2 = Entry(gstscreen,textvariable=ctx,
+                   width=38)
+        entry2.place(x=210, y=230)
+        entry2.insert(0,'%')
+        gstt_btn = Button(gstscreen, text='Submit', width=18, fg="white", font=("arial", 13),bg='green',activebackground="yellow",command=gstt_submit,relief=GROOVE).place(x=160, y=260)
+        
+def gstt_submit():
+    gs1 = gcmb1.get()
+    gs2 = gcmb2.get()
+    gs3 = intx.get()
+    gs4 = ctx.get()
+    sql = 'INSERT INTO ledger_gst(transaction_nature,taxability,integrate_tax ,cess)  VALUES(%s,%s,%s,%s)'
+    val = (gs1, gs2, gs3, gs4)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('Create Gst Successfully')
+        
+    
 def ledger():
     screen2 = Toplevel(root)
     screen2.title('CREATE')
@@ -165,6 +219,7 @@ def ledger():
     set_combo = ['Yes', 'No']
     cmb3 = ttk.Combobox(screen2, value=set_combo, width=35)
     cmb3.place(x=135, y=240)
+    cmb3.bind("<<ComboboxSelected>>",gstfun)
     supply_typ = Label(screen2, text='Type Of Supply:').place(x=20, y=270)
     supply_combo = ['Goods', 'Services']
     cmb4 = ttk.Combobox(screen2, value=supply_combo, width=35)
@@ -211,10 +266,6 @@ def ledger_submit():
     ledg_cmb1 = cmb1.get()
     ledg_cmb2 = cmb2.get()
     ledg_cmb3 = cmb3.get()
-    if ledg_cmb3 == 'Yes':
-          gstdet_scrn = Toplevel(root)
-          gstdet_scrn.title('CREATE')
-          gstdet_scrn.geometry('600x450')
     ledg_cmb4 = cmb4.get()
     ledg_namee = ledg_nme.get()
     ledg_addrss = ledg_adrs.get()
@@ -223,7 +274,12 @@ def ledger_submit():
     ledg_pncode = ledg_pincod.get()
     ledg_cmb5 = cmb5.get()
     ledg_itax = ledg_intax.get()
-    
+    sql = 'INSERT INTO master_ledger(name,under,type,gst_applicable,set_gst,supply_type,mail_name,addrss,state,country,pincode,bank_details,pan_no)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (ledg_nmee,ledg_cmb,ledg_cmb1,ledg_cmb2,ledg_cmb3,ledg_cmb4,ledg_namee,ledg_addrss,ledg_stte,ledg_cuntry,ledg_pncode,ledg_cmb5,ledg_itax)
+    mycursor.execute(sql,val)
+    mydb.commit()
+    messagebox.showinfo('Create Ledger Successfully')
+        
 def currency_creation():
     currncy_scrn = Toplevel(root)
     currncy_scrn .title('CREATE')
@@ -447,11 +503,15 @@ def stock_item():
     stock_entry1 = Entry(stock_itemscrn, textvariable=stock_item_name,
                          width=38).place(x=210, y=70)
     Stock_itemunder = Label(stock_itemscrn, text='Under:').place(x=20, y=100)
+    sql = "SELECT name FROM stockGroup"
+    mycursor.execute(sql,)
+    stck_under= mycursor.fetchall()
+    stck_nameunder = []
+    for i in stck_under:
+        stck_nameunder.append(i[0])
     stock_entry4 = ttk.Combobox(stock_itemscrn,width=35)
     stock_entry4.place(x=210,y=100)
-    mycursor.execute('SELECT name FROM stockGroup')
-    for i in mycursor.fetchall():
-        stock_entry4.insert(0, i)
+    stock_entry4['values'] = stck_nameunder
     Stock_itemunit = Label(stock_itemscrn, text='Units:').place(x=20, y=130)
     stockk_under = ['Applicable','Not Applicable']
     stock_entry5 = ttk.Combobox(stock_itemscrn, value=stockk_under, width=35)
@@ -480,8 +540,8 @@ def stock_itemsubmit():
     stck_gst = stock_entry6.get()
     stck_detail = stock_entry7.get()
     stck_supply = stock_entry8.get()
-    sql = 'INSERT INTO stock_item(name,units,gst_applicable,gst_details,supply_type) VALUES(%s,%s,%s,%s,%s)'
-    val = (stck_nme,stck_units, stck_gst,stck_detail, stck_supply)
+    sql = 'INSERT INTO stock_item(name,stock_under,units,gst_applicable,gst_details,supply_type) VALUES(%s,%s,%s,%s,%s,%s)'
+    val = (stck_nme,stck_under,stck_units, stck_gst,stck_detail, stck_supply)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Stock Item Successfully Created')
