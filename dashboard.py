@@ -53,7 +53,7 @@ def create_master():
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=90)
     Button(screen1, text='Currency', command=currency_creation, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=110)
-    Button(screen1, text='Rate Of Exchange', command='', fg='black', font=(
+    Button(screen1, text='Rate Of Exchange', command=rateof_exchnge, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=130)
     Button(screen1, text='Voucher Type', command=voucher_creation, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=150)
@@ -146,7 +146,7 @@ def gstfun(event):
     if ledg_cmb3 == 'Yes':
         gstscreen = Toplevel()
         gstscreen.title('CREATE')
-        gstscreen.geometry('500x450')
+        gstscreen.geometry('500x380')
         Label(gstscreen, text='GST details for Ledger',
           font='17', fg="black", width=430).pack()
         gstvar = Label(gstscreen, text='',
@@ -177,7 +177,7 @@ def gstfun(event):
                    width=38)
         entry2.place(x=210, y=230)
         entry2.insert(0,'%')
-        gstt_btn = Button(gstscreen, text='Submit', width=18, fg="white", font=("arial", 13),bg='green',activebackground="yellow",command=gstt_submit,relief=GROOVE).place(x=160, y=260)
+        gstt_btn = Button(gstscreen, text='Submit', width=18, fg="white", font=("arial", 13),bg='green',activebackground="yellow",command=gstt_submit,relief=GROOVE).place(x=160, y=280)
         
 def gstt_submit():
     gs1 = gcmb1.get()
@@ -190,75 +190,74 @@ def gstt_submit():
     mydb.commit()
     messagebox.showinfo('Create Gst Successfully')
         
-    
 def ledger():
-    screen2 = Toplevel(root)
+    screen2 = Toplevel()
     screen2.title('CREATE')
     screen2.geometry('700x630')
     Label(screen2, text='Ledger Creation', bg="blue",
           font='17', fg="white", width=430).pack()
     global ledg_name,cmb,cmb1, cmb2, cmb3,cmb4,ledg_nme,ledg_adrs,ledg_state,ledg_country,ledg_pincod,cmb5,ledg_intax
-    lname = Label(screen2, text='Name:').place(x=20, y=70)
+    lname = Label(screen2, text='Name:').place(x=20, y=50)
     ledg_name = StringVar()
     entry1 = Entry(screen2, textvariable=ledg_name,
-                   width=38).place(x=130, y=70)
-    under = Label(screen2, text='Under:').place(x=20, y=100)
+                   width=38).place(x=130, y=50)
+    under = Label(screen2, text='Under:').place(x=20, y=80)
     ledger_grp = ['Bank Accounts','Bank OCC A/c','Bank OD A/c','Branch/Divisions','Capital Account','Cash-in-Hand','Current Assets','Current Liabilities','Deposits(Asset)','Direct Expenses','Direct Income','Duties & Taxes','Expenses(Direct)','Expenses(Indirect)','Fixed Assets','Income(Direct)','Income(Indirect)','Indirect Expenses','Indirect Incomes','Investments','Loans & Advances(Asset)','Loans(Liability)','Misc Expenses(ASSET)','Provisions','Purchase Account','Reserves & Surplus','Retained Earnings','Sales Accounts','Secured Loans','Stock-in-Hand','Sundry Creditors','Sundry Debitors','Suspense A/c','Unsecured Loans']
     cmb = ttk.Combobox(screen2, value=ledger_grp, width=35)
-    cmb.place(x=130, y=100)
-    type = Label(screen2, text='Type Of Ledger:').place(x=20, y=130)
+    cmb.place(x=130, y=80)
+    type = Label(screen2, text='Type Of Ledger:').place(x=20, y=110)
     ledger_typ = ['Not Applicable','Discount','Invoice Rounding']
     cmb1 = ttk.Combobox(screen2, value=ledger_typ, width=35)
-    cmb1.place(x=130, y=130)
-    st_details = Label(screen2, text='Statutory Details',font=('arial',11)).place(x=20, y=180)
-    gst_applcbl = Label(screen2, text='Is GST Applicable:',).place(x=20, y=210)
+    cmb1.place(x=130, y=110)
+    st_details = Label(screen2, text='Statutory Details',font=('arial',11)).place(x=20, y=140)
+    gst_applcbl = Label(screen2, text='Is GST Applicable:',).place(x=20, y=170)
     gst_combo = ['Applicable', 'Not Applicable', 'Undefined']
     cmb2 = ttk.Combobox(screen2, value=gst_combo, width=35)
-    cmb2.place(x=135, y=210)
-    set = Label(screen2, text='Set/Alter GST Details:').place(x=20, y=240)
+    cmb2.place(x=135, y=170)
+    set = Label(screen2, text='Set/Alter GST Details:').place(x=20, y=200)
     set_combo = ['Yes', 'No']
     cmb3 = ttk.Combobox(screen2, value=set_combo, width=35)
-    cmb3.place(x=135, y=240)
+    cmb3.place(x=135, y=200)
     cmb3.bind("<<ComboboxSelected>>",gstfun)
-    supply_typ = Label(screen2, text='Type Of Supply:').place(x=20, y=270)
+    supply_typ = Label(screen2, text='Type Of Supply:').place(x=20, y=230)
     supply_combo = ['Goods', 'Services']
     cmb4 = ttk.Combobox(screen2, value=supply_combo, width=35)
-    cmb4.place(x=135, y=270)
+    cmb4.place(x=135, y=230)
     Label(screen2, text='Mailing Details',
-          font='14', fg="black").place(x=20,y=300)
-    led_name = Label(screen2, text='Name:').place(x=20, y=330)
+          font=('arial',11), fg="black").place(x=20,y=260)
+    led_name = Label(screen2, text='Name:').place(x=20, y=290)
     ledg_nme = StringVar()
     entry2 = Entry(screen2, textvariable=ledg_nme,
-                   width=38).place(x=130, y=330)
-    led_addrss = Label(screen2, text='Address:').place(x=20, y=360)
+                   width=38).place(x=130, y=290)
+    led_addrss = Label(screen2, text='Address:').place(x=20, y=320)
     ledg_adrs = StringVar()
     entry3 = Entry(screen2, textvariable=ledg_adrs,
-                   width=38).place(x=130, y=360)
-    led_state = Label(screen2, text='State:').place(x=20, y=390)
+                   width=38).place(x=130, y=320)
+    led_state = Label(screen2, text='State:').place(x=20, y=350)
     ledg_state = StringVar()
     entry4 = Entry(screen2, textvariable=ledg_state,
-                   width=38).place(x=130, y=390)
-    led_country = Label(screen2, text='Country:').place(x=20, y=420)
+                   width=38).place(x=130, y=350)
+    led_country = Label(screen2, text='Country:').place(x=20, y=380)
     ledg_country = StringVar()
     entry5 = Entry(screen2, textvariable=ledg_country,
-                   width=38).place(x=130, y=420)
-    led_pincode = Label(screen2, text='Pincode:').place(x=20, y=450)
+                   width=38).place(x=130, y=380)
+    led_pincode = Label(screen2, text='Pincode:').place(x=20, y=410)
     ledg_pincod = StringVar()
     entry6 = Entry(screen2, textvariable=ledg_pincod,
-                   width=38).place(x=130, y=450)
+                   width=38).place(x=130, y=410)
     Label(screen2, text='Banking Details',
-          font='14', fg="black").place(x=20,y=480)
-    led_bnk = Label(screen2, text='Provide Bank Details:').place(x=20, y=510)
+          font=('arial',11), fg="black").place(x=20,y=440)
+    led_bnk = Label(screen2, text='Provide Bank Details:').place(x=20, y=470)
     ledg_bnkdetail = ['Yes','No']
     cmb5 = ttk.Combobox(screen2, value=ledg_bnkdetail, width=35)
-    cmb5.place(x=135, y=510)
+    cmb5.place(x=135, y=470)
     Label(screen2, text='Tax Registration Details:',
-          font='14', fg="black").place(x=20,y=540)
-    led_tax = Label(screen2, text='PAN/IN no:').place(x=20, y=570)
+          font=('arial', 11), fg="black").place(x=20, y=500)
+    led_tax = Label(screen2, text='PAN/IN no:').place(x=20, y=530)
     ledg_intax = StringVar()
     entry7 = Entry(screen2, textvariable=ledg_intax,
-                   width=38).place(x=130, y=570)
-    ledger_btn = Button(screen2, text='Submit', width=18, fg="white", font=("arial", 13),bg='green',activebackground="yellow",command=ledger_submit,relief=GROOVE).place(x=160, y=600)
+                   width=38).place(x=130, y=530)
+    ledger_btn = Button(screen2, text='Submit', width=18, fg="white", font=("arial", 13),bg='green',activebackground="yellow",command=ledger_submit,relief=GROOVE).place(x=160, y=570)
 
 def ledger_submit():
     ledg_nmee = ledg_name.get()
@@ -760,10 +759,24 @@ def PAN_submit():
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('PAN Details Successfully Created')
-
+def rateof_exchnge():
+    ratescrn = Toplevel()
+    ratescrn.title('CREATE')
+    ratescrn.geometry('1000x500')
+    Label(ratescrn, text='Rate of Exchange', bg="blue",
+          font='17', fg="white", width=430).pack()
+    Label(ratescrn, text='Date of Exchange :',
+          font=('arial',11), fg="black").place(x=20,y=40) 
+    Label(ratescrn, text='1-Apr-2022',
+          font=('arial',11), fg="black").place(x=160,y=40) 
+    Label(ratescrn, text='Sl.no',
+          font=('arial', 11), fg="black").place(x=20, y=70)
+    Label(ratescrn, text='Currency',
+          font=('arial', 11), fg="black").place(x=120, y=70)
+    
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
-
+            
 def master_alter():
     altscrn = Toplevel(root)
     altscrn.title('ALTER')

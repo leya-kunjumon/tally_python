@@ -22,7 +22,7 @@ prd = Label(root, text="1-Apr-22 to 31-March-23", fg="black").place(x=40, y=60)
 date = Label(root, text="Friday, 1-Apr-2022", fg="black").place(x=340, y=60)
 cmpny = Label(root, text="Name Of Company",borderwidth=3,fg="blue").place(x=40, y=100)
 lst_entry = Label(root, text="Date Of Last Entry", fg="blue").place(x=340, y=100)
-cpny = Label(root, text="ABC Pvt ltd", fg="black").place(x=40, y=140)
+cpny = Label(root, text="ABC PVT LTD", fg="black").place(x=40, y=140)
 date_entry = Label(root, text="1-Apr-22",fg="black").place(x=340, y=140)
 separator = ttk.Separator(root,orient='vertical')
 separator.place(relx=0.47,rely=0,relwidth=0.2,relheight=1)
@@ -96,11 +96,8 @@ def func2():
     mycursor.execute("select name from company")
     for x in mycursor:
         print(x)
-        # immm = str(x[0])
-        # imn = str.replace(immm," "," ")
         my_listbox.insert(0,x[0])
         
-
 company = Button(frame3, text="Company", width=20, fg="black", font=(
     "impact", 8), command=func2, activebackground="yellow", activeforeground="red").place(x=13, y=50)
 
