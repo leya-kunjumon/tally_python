@@ -762,7 +762,7 @@ def PAN_submit():
 def rateof_exchnge():
     ratescrn = Toplevel()
     ratescrn.title('CREATE')
-    ratescrn.geometry('1000x500')
+    ratescrn.geometry('850x500')
     Label(ratescrn, text='Rate of Exchange', bg="blue",
           font='17', fg="white", width=430).pack()
     Label(ratescrn, text='Date of Exchange :',
@@ -773,7 +773,12 @@ def rateof_exchnge():
           font=('arial', 11), fg="black").place(x=20, y=70)
     Label(ratescrn, text='Currency',
           font=('arial', 11), fg="black").place(x=120, y=70)
-    
+    Label(ratescrn, text='Std Rate',
+          font=('arial', 11), fg="black").place(x=360, y=70)
+    Label(ratescrn, text='Selling Rate',
+          font=('arial', 11), fg="black").place(x=520, y=70)
+    Label(ratescrn, text='Buying Rate',
+          font=('arial', 11), fg="black").place(x=680, y=70)
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
             
