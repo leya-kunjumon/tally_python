@@ -326,22 +326,17 @@ def select():
           font='17', fg="white", width=640).pack()
     select_frame = Frame(screen6)
     select_frame.pack(fill=BOTH,expand=1)
-    
     my_canvas = Canvas(select_frame)
     my_canvas.pack(side=LEFT,fill=BOTH,expand=1)
-    
     shut_scroll = ttk.Scrollbar(select_frame,orient=VERTICAL,command=my_canvas.yview)
     shut_scroll.pack(side=RIGHT,fill=Y)
-    
     my_canvas.configure(yscrollcommand=shut_scroll.set)
     my_canvas.bind('<Configure>',lambda e:my_canvas.configure(scrollregion=my_canvas.bbox("all")))
-    
     select2_frame = Frame(my_canvas)
-    
     my_canvas.create_window((0,0),window=select2_frame,anchor="nw")
     mycursor.execute('SELECT name FROM company')
     for i in mycursor.fetchall():
-        Button(select2_frame, text=i[0], fg="black", width=20, border=0, font=(
+         Button(select2_frame, text=i[0],fg="black", width=20, border=0, font=(
             "arial", 13), activebackground="yellow").grid(column=0, pady=10, padx=10)
 
 def shut_company():
@@ -369,7 +364,7 @@ def shut_company():
     my_canvas.create_window((0,0),window=shut2_frame,anchor="nw")
     mycursor.execute('SELECT name FROM company')
     for i in mycursor.fetchall():
-       Button(shut2_frame,text=i[0],fg="black",width=20,border=0,font=( "arial", 13),activebackground="yellow",command=shut).grid(column=0,pady=10,padx=10)
+       Button(shut2_frame,text=i[0],fg="black",width=20,border=0,font=( "arial", 13),activebackground="yellow",command=shut).grid(column=0,pady=10,padx=40)
 def shut():
     global pop 
     pop = Toplevel(screen7)

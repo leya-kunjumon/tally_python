@@ -80,7 +80,7 @@ def change_company():
     changescrn = Toplevel(root)
     changescrn.title('CREATE')
     changescrn.geometry('380x300')
-    Label(changescrn, text='Change Company', bg="blue",
+    Label(changescrn, text='Change Company', bg="navyblue",
           font='17', fg="white", width=430).pack()
     global comcmb
     comname = Label(changescrn, text='Name:').place(x=20, y=70)
@@ -762,7 +762,7 @@ def PAN_submit():
 def rateof_exchnge():
     ratescrn = Toplevel()
     ratescrn.title('CREATE')
-    ratescrn.geometry('850x500')
+    ratescrn.geometry('1050x500')
     Label(ratescrn, text='Rate of Exchange', bg="blue",
           font='17', fg="white", width=430).pack()
     Label(ratescrn, text='Date of Exchange :',
@@ -776,9 +776,18 @@ def rateof_exchnge():
     Label(ratescrn, text='Std Rate',
           font=('arial', 11), fg="black").place(x=360, y=70)
     Label(ratescrn, text='Selling Rate',
-          font=('arial', 11), fg="black").place(x=520, y=70)
+          font=('arial', 11), fg="black").place(x=490, y=70)
     Label(ratescrn, text='Buying Rate',
-          font=('arial', 11), fg="black").place(x=680, y=70)
+          font=('arial', 11), fg="black").place(x=760, y=70)
+    Label(ratescrn, text='Last Voucher  Rate',
+          font=('arial', 11), fg="black").place(x=490, y=100)
+    Label(ratescrn, text='Specified Rate',
+          font=('arial', 11), fg="black").place(x=640, y=100)
+    Label(ratescrn, text='Last Voucher Rate',
+          font=('arial', 11), fg="black").place(x=760, y=100)
+    Label(ratescrn, text='Specified Rate',
+          font=('arial', 11), fg="black").place(x=900, y=100)
+
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
             
@@ -792,35 +801,72 @@ def master_alter():
           font=('Arial', 11), fg="black").place(x=10, y=50)
     Button(altscrn, text='Change Company', command=change_company, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=308, y=50)
-    Button(altscrn, text='Group', command=group, fg='black', font=(
+    Button(altscrn, text='Group', command=group_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=70)
-    Button(altscrn, text='Ledger', command=ledger, fg='black', font=(
+    Button(altscrn, text='Ledger', command=ledger_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=90)
-    Button(altscrn, text='Currency', command=currency_creation, fg='black', font=(
+    Button(altscrn, text='Currency', command=currency_creation_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=110)
     Button(altscrn, text='Rate Of Exchange', command='', fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=130)
-    Button(altscrn, text='Voucher Type', command=voucher_creation, fg='black', font=(
+    Button(altscrn, text='Voucher Type', command=voucher_creation_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=150)
     Label(altscrn, text='Inventory Masters',
           font=('Arial', 11), fg="black").place(x=10, y=180)
-    Button( altscrn, text='Stock Group', command=stock_creation, fg='black', font=(
+    Button( altscrn, text='Stock Group', command=stock_creation_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=200)
-    Button(altscrn, text='Stock Catagory', command=stock_catagory, fg='black', font=(
+    Button(altscrn, text='Stock Catagory', command=stock_catagory_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=220)
-    Button(altscrn, text='Stock Item', command=stock_item, fg='black', font=(
+    Button(altscrn, text='Stock Item', command=stock_item_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=240)
-    Button(altscrn, text='Unit', command=unit, fg='black', font=(
+    Button(altscrn, text='Unit', command=unit_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260)
-    Button(altscrn, text='Godown', command=godown, fg='black', font=(
+    Button(altscrn, text='Godown', command=godown_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=280)
     Label(altscrn, text='Statutory Details',
           font=('Arial', 11), fg="black").place(x=10, y=310)
-    Button(altscrn, text='GST Details', command=gst_details, fg='black', font=(
+    Button(altscrn, text='GST Details', command=gst_details_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=340)
-    Button(altscrn, text='PAN/CIN Details', command=Pan_details, fg='black', font=(
+    Button(altscrn, text='PAN/CIN Details', command=Pan_details_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
         
+def group_alter():
+    altgrpscrn = Toplevel(root)
+    altgrpscrn.title('ALTER')
+    altgrpscrn.geometry('500x500')
+    Label(altgrpscrn, text='ALTER GROUP', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+    
+def ledger_alter():
+    altledgscrn = Toplevel(root)
+    altledgscrn.title('ALTER')
+    altledgscrn.geometry('500x500')
+    Label(altledgscrn, text='ALTER LEDGER', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+
+def currency_creation_alter():
+    pass
+def voucher_creation_alter():
+    pass
+def stock_creation_alter():
+    pass
+def stock_catagory_alter():
+    pass
+def stock_item_alter():
+    pass
+def unit_alter():
+    pass
+def godown_alter():
+    pass
+def gst_details_alter():
+    pass
+
+def Pan_details_alter():
+    pass
+
+
+
+
 b2 = Button(root, text="Alter", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=master_alter).place(x=830, y=210)
 b3 = Button(root, text="Chart Of Accounts", fg="black", activebackground="yellow",
