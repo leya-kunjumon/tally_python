@@ -93,7 +93,14 @@ def change_company():
     comcmb = ttk.Combobox(changescrn, width=35)
     comcmb.place(x=130, y=70)
     comcmb['values'] = chng_cmpny
-    chng_btn = Button(changescrn, text='Submit', width=17, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=grp_submit,relief=GROOVE).place(x=140, y=120)
+    chng_btn = Button(changescrn, text='Submit', width=17, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=chnge_cmny,relief=GROOVE).place(x=140, y=120)
+
+def chnge_cmny() :
+    change_comscrn = Toplevel(root)
+    change_comscrn.title('CREATE')
+    change_comscrn.geometry('380x300')
+    Label(change_comscrn, text='Change Company', bg="navyblue",
+          font='17', fg="white", width=430).pack()
 
 def group():
     grpscrn = Toplevel(root)
@@ -845,26 +852,67 @@ def ledger_alter():
           font='17', fg="white", width=430).pack()
 
 def currency_creation_alter():
-    pass
+    altcurncyscrn = Toplevel(root)
+    altcurncyscrn.title('ALTER')
+    altcurncyscrn.geometry('500x500')
+    Label(altcurncyscrn, text='ALTER CURRENCY', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+          
 def voucher_creation_alter():
-    pass
+    altvouchrscrn = Toplevel(root)
+    altvouchrscrn.title('ALTER')
+    altvouchrscrn.geometry('500x500')
+    Label(altvouchrscrn, text='ALTER VOUCHER', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+          
 def stock_creation_alter():
-    pass
+    altstckscrn = Toplevel(root)
+    altstckscrn.title('ALTER')
+    altstckscrn.geometry('500x500')
+    Label(altstckscrn,text='ALTER STOCK', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+          
 def stock_catagory_alter():
-    pass
+    altstckcatgscrn = Toplevel(root)
+    altstckcatgscrn.title('ALTER')
+    altstckcatgscrn.geometry('500x500')
+    Label(altstckcatgscrn,text='ALTER STOCK CATAGORY', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+          
 def stock_item_alter():
-    pass
+    altstckitmscrn = Toplevel(root)
+    altstckitmscrn.title('ALTER')
+    altstckitmscrn.geometry('500x500')
+    Label(altstckitmscrn,text='ALTER STOCK ITEM', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+    
 def unit_alter():
-    pass
+    altunitscrn = Toplevel(root)
+    altunitscrn.title('ALTER')
+    altunitscrn.geometry('500x500')
+    Label(altunitscrn,text='ALTER UNIT', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+          
 def godown_alter():
-    pass
+    altgodwnscrn = Toplevel(root)
+    altgodwnscrn.title('ALTER')
+    altgodwnscrn.geometry('500x500')
+    Label(altgodwnscrn,text='ALTER GODOWN', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+    
 def gst_details_alter():
-    pass
+    altgstscrn = Toplevel(root)
+    altgstscrn.title('ALTER')
+    altgstscrn.geometry('500x500')
+    Label(altgstscrn,text='ALTER GST DETAILS', bg="navyblue",
+          font='17', fg="white", width=430).pack()
 
 def Pan_details_alter():
-    pass
-
-
+    altpanscrn = Toplevel(root)
+    altpanscrn.title('ALTER')
+    altpanscrn.geometry('500x500')
+    Label(altpanscrn,text='ALTER PAN DETAILS', bg="navyblue",
+          font='17', fg="white", width=430).pack()
 
 
 b2 = Button(root, text="Alter", fg="black", activebackground="yellow",
