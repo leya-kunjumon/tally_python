@@ -355,12 +355,14 @@ def shut_company() :
     shut_scroll.pack(side=RIGHT,fill=Y)
     my_canvas.configure(yscrollcommand=shut_scroll.set)
     my_canvas.bind('<Configure>',lambda e:my_canvas.configure(scrollregion=my_canvas.bbox("all")))
-    
     shut2_frame = Frame(my_canvas)
     my_canvas.create_window((0,0),window=shut2_frame,anchor="nw")
+    
     mycursor.execute('SELECT name FROM company')
     for i in mycursor.fetchall():
-       Button(shut2_frame,text=i[0],fg="black",width=20,border=0,font=( "arial", 13),activebackground="yellow",command=shut).grid(column=0,pady=10,padx=40)
+       Button(shut2_frame,text=i[0],fg="black",width=20,border=0,font=( "arial", 13),
+       activebackground="yellow",command=shut).grid(column=0,pady=10,padx=40)
+       
 
 def shut():
     global pop 
@@ -384,6 +386,7 @@ def shut():
     no = Button(new_frame, text="NO", fg="white", width=20,
                 bg="green", relief=SUNKEN, command=lambda: choice("no"))
     no.grid(row=2,column=3,padx=10)
+    
 def choice(option):
     pop.destroy()
     if option =="yes":
@@ -391,6 +394,38 @@ def choice(option):
     else:
         messagebox.showinfo('Yow will now return to application screen')
     
+def choice1():
+    pop1 = Toplevel()
+    pop1.title("Company List")
+    pop1.geometry("380x250")
+    pop1.resizable(False,False)
+    Label(pop1, text='Tax Details',).place(x=20, y=100)
+    gsttx = Label(pop1, text='Taxability:').place(x=20, y=140)
+    gcmb2 = ttk.Combobox(pop1, width=35)
+    gcmb2.place(x=210,y=140)
+    gcmb2['values'] = ['Unknown','Exempt','Nil Rated','Taxable']
+    Label(pop1, text='Tax Type',).place(x=20, y=170)
+    Label(pop1, text='Rate',).place(x=210, y=170)
+    inttax  = Label(pop1, text='Integrated Tax:').place(x=20, y=200)
+    intx = StringVar()
+    entry1 = Entry(pop1, textvariable=intx,
+                   width=38)
+    entry1.place(x=210, y=200)
+    entry1.insert(0,'%')
+    cess = Label(pop1, text='Cess:').place(x=20, y=230)
+    ctx = StringVar()
+    entry2 = Entry(pop1,textvariable=ctx,width=38)
+    entry2.place(x=210, y=230)
+    entry2.insert(0,'%')
+    gstt_btn = Button(pop1, text='Submit', width=18, fg="white", font=("arial", 13),bg='green',activebackground="yellow",command='stt',relief=GROOVE).place(x=160, y=280)
+
+def stt() :
+    pop11 = Toplevel()
+    pop11.title("Company List")
+    pop11.geometry("380x250")
+    pop11.resizable(False,False)   
+    
+
 root.mainloop()
 
 

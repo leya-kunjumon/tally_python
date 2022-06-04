@@ -93,14 +93,15 @@ def change_company():
     comcmb = ttk.Combobox(changescrn, width=35)
     comcmb.place(x=130, y=70)
     comcmb['values'] = chng_cmpny
-    chng_btn = Button(changescrn, text='Submit', width=17, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=chnge_cmny,relief=GROOVE).place(x=140, y=120)
+    chng_btn = Button(changescrn, text='Submit', width=17, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=chnge_cmpny,relief=GROOVE).place(x=140, y=120)
 
-def chnge_cmny() :
-    change_comscrn = Toplevel(root)
-    change_comscrn.title('CREATE')
-    change_comscrn.geometry('380x300')
-    Label(change_comscrn, text='Change Company', bg="navyblue",
+def chnge_cmpny() :
+    chngscrn = Toplevel(root)
+    chngscrn.title('CREATE')
+    chngscrn.geometry('600x500')
+    Label(chngscrn, text='Group Creation', bg="blue",
           font='17', fg="white", width=430).pack()
+
 
 def group():
     grpscrn = Toplevel(root)
@@ -805,7 +806,8 @@ def master_alter():
     Label(altscrn, text='List Of Masters', bg="blue",
           font='17', fg="white", width=430).pack()
     Label(altscrn, text='Accounting Masters',
-          font=('Arial', 11), fg="black").place(x=10, y=50)
+          font=('Arial', 11),fg="black").place(x=10, y=50)
+          
     Button(altscrn, text='Change Company', command=change_company, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=308, y=50)
     Button(altscrn, text='Group', command=group_alter, fg='black', font=(
