@@ -20,7 +20,10 @@ root.title("TALLY PRIME")
 curnt_period = Label(root, text="CURRENT PERIOD", fg="blue").place(x=40, y=30)
 curnt_date = Label(root, text="CURRENT DATE", fg="blue").place(x=340, y=30)
 prd = Label(root, text="1-Apr-22 to 31-March-23", fg="black").place(x=40, y=60)
-date = Label(root, text="Friday, 1-Apr-2022", fg="black").place(x=340, y=60)
+date = dt.datetime.now()
+# Create Label to display the Date
+label = Label(root, text=f"{date:%A,  %d-%B-%Y}", fg="black")
+label.place(x=340, y=60)
 cmpny = Label(root, text="Name Of Company",
               borderwidth=3, fg="blue").place(x=40, y=100)
 lst_entry = Label(root, text="Date Of Last Entry",

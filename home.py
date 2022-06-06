@@ -1,11 +1,15 @@
 from glob import glob
 import imghdr
 from msilib.schema import Font, Icon
+from sre_constants import ANY
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
 import datetime as dt
-from turtle import width
+from tkinter import font
+from tkinter.font import BOLD
+# from tkinter import _Anchor
+from turtle import bgcolor, width
 import mysql.connector
 import io
 from models import *
@@ -19,11 +23,35 @@ root.title("TALLY PRIME")
 curnt_period = Label(root, text="CURRENT PERIOD",fg="blue").place(x=40, y=30)
 curnt_date = Label(root, text="CURRENT DATE",fg="blue").place(x=340, y=30)
 prd = Label(root, text="1-Apr-22 to 31-March-23", fg="black").place(x=40, y=60)
-date = Label(root, text="Friday, 1-Apr-2022", fg="black").place(x=340, y=60)
-cmpny = Label(root, text="Name Of Company",borderwidth=3,fg="blue").place(x=40, y=100)
-lst_entry = Label(root, text="Date Of Last Entry", fg="blue").place(x=340, y=100)
-cpny = Label(root, text="ABC PVT LTD", fg="black").place(x=40, y=140)
-date_entry = Label(root, text="1-Apr-22",fg="black").place(x=340, y=140)
+date = dt.datetime.now()
+# Create Label to display the Date
+label = Label(root, text=f"{date:%A,  %d-%B-%Y}",fg="black")
+label.place(x=340, y=60)
+
+style1 =  ttk.Style()
+style1.configure("mystyle1.Treeview",borderwidth=0, font=(
+    'Calibri', 11, 'bold'))  # Modify the font of the body
+style1.configure("mystyle1.Treeview.Heading", font=('Calibri', 10, 'bold'),
+                 foreground="blue")  # Modify the font of the headings
+
+ord_previewtree = ttk.Treeview(
+    root, style="mystyle1.Treeview")
+
+treescroll = ttk.Scrollbar(ord_previewtree, orient="vertical",
+                           command=ord_previewtree.yview)
+treescroll.pack(side='right', fill='y')
+ord_previewtree.configure(yscrollcommand=treescroll.set)
+
+ord_previewtree["columns"] = ["1","2"]
+ord_previewtree.column("#0", width=1)
+ord_previewtree.column("1", width=100)
+ord_previewtree.column("2", width=300)
+
+ord_previewtree.heading("#0",text="")
+ord_previewtree.heading("1",text="Name Of Company")
+ord_previewtree.heading("2", text="Date Of Last Entry")
+ord_previewtree.place(x=5, y=130, width=600,height=550)
+
 separator = ttk.Separator(root,orient='vertical')
 separator.place(relx=0.47,rely=0,relwidth=0.2,relheight=1)
 frame = Label(root, text="Accounts Book",bg="blue",fg="white",width=40,padx=20,pady=10).place(x=740, y=65)
@@ -323,21 +351,31 @@ def select():
     screen6.geometry('430x330')
     Label(screen6, text='Select Company', bg="navyblue",
           font='17', fg="white", width=640).pack()
-    select_frame = Frame(screen6)
-    select_frame.pack(fill=BOTH,expand=1)
-    my_canvas = Canvas(select_frame)
-    my_canvas.pack(side=LEFT,fill=BOTH,expand=1)
-    shut_scroll = ttk.Scrollbar(select_frame,orient=VERTICAL,command=my_canvas.yview)
-    shut_scroll.pack(side=RIGHT,fill=Y)
-    my_canvas.configure(yscrollcommand=shut_scroll.set)
-    my_canvas.bind('<Configure>',lambda e:my_canvas.configure(scrollregion=my_canvas.bbox("all")))
-    select2_frame = Frame(my_canvas)
-    my_canvas.create_window((0,0),window=select2_frame,anchor="nw")
-    mycursor.execute('SELECT name FROM company')
-    for i in mycursor.fetchall() :
-         Button(select2_frame, text=i[0],fg="black", width=20, border=0, font=(
-            "arial", 13), activebackground="yellow").grid(column=0, pady=10, padx=10)
     
+    def select1(event):
+       LST = my_listbox.get(ANCHOR)
+       print(LST)
+    #    sql = 'select * from orders where order_number = %s'
+    #    val =  (ord_editid,)
+    #    fbcursor.execute(sql,val)
+    #    edit_ord = fbcursor.fetchone()
+       ord_previewtree.insert(parent='', index='end', iid=LST, text='', values=(LST,''))
+       screen6.destroy()
+       
+    my_frame = Frame(screen6)
+    my_scrollbar = Scrollbar(my_frame,orient='vertical')
+    my_listbox = Listbox(my_frame,yscrollcommand=my_scrollbar.set,width=60,height=15,bg="lavender",borderwidth=0)
+    my_scrollbar.config(command = my_listbox.yview)
+    my_scrollbar.pack(side = RIGHT,fill=Y)
+    my_frame.place(x=20,y=30)
+    my_listbox.pack(pady=10)
+    mycursor.execute("select name from company")
+    for x in mycursor:
+        print(x)
+        my_listbox.insert(0,x[0])
+    my_listbox.bind('<<ListboxSelect>>', select1)
+
+        
 
 def shut_company() :
     global screen7
@@ -347,21 +385,35 @@ def shut_company() :
     screen7.geometry('430x430')
     Label(screen7, text='List Of Companies', bg="navyblue",
           font='17', fg="white", width=640).pack()
-    shut_frame = Frame(screen7)
-    shut_frame.pack(fill=BOTH,expand=1)
-    my_canvas = Canvas(shut_frame)
-    my_canvas.pack(side=LEFT,fill=BOTH,expand=1)
-    shut_scroll = ttk.Scrollbar(shut_frame,orient=VERTICAL,command=my_canvas.yview)
-    shut_scroll.pack(side=RIGHT,fill=Y)
-    my_canvas.configure(yscrollcommand=shut_scroll.set)
-    my_canvas.bind('<Configure>',lambda e:my_canvas.configure(scrollregion=my_canvas.bbox("all")))
-    shut2_frame = Frame(my_canvas)
-    my_canvas.create_window((0,0),window=shut2_frame,anchor="nw")
+    # shut_frame = Frame(screen7)
+    # shut_frame.pack(fill=BOTH,expand=1)
+    # my_canvas = Canvas(shut_frame)
+    # my_canvas.pack(side=LEFT,fill=BOTH,expand=1)
+    # shut_scroll = ttk.Scrollbar(shut_frame,orient=VERTICAL,command=my_canvas.yview)
+    # shut_scroll.pack(side=RIGHT,fill=Y)
+    # my_canvas.configure(yscrollcommand=shut_scroll.set)
+    # my_canvas.bind('<Configure>',lambda e:my_canvas.configure(scrollregion=my_canvas.bbox("all")))
+    # shut2_frame = Frame(my_canvas)
+    # my_canvas.create_window((0,0),window=shut2_frame,anchor="nw")
     
-    mycursor.execute('SELECT name FROM company')
-    for i in mycursor.fetchall():
-       Button(shut2_frame,text=i[0],fg="black",width=20,border=0,font=( "arial", 13),
-       activebackground="yellow",command=shut).grid(column=0,pady=10,padx=40)
+    # mycursor.execute('SELECT name FROM company')
+    # for i in mycursor.fetchall():
+    #    Button(shut2_frame,text=i[0],fg="black",width=20,border=0,font=( "arial", 13),
+    #    activebackground="yellow",command=shut).grid(column=0,pady=10,padx=40)
+    my_frame1 = Frame(screen7)
+    my_scrollbar = Scrollbar(my_frame1,orient='vertical')
+    my_listbox = Listbox(my_frame1, yscrollcommand=my_scrollbar.set,
+                         width=55, height=20, bg="lavender", borderwidth=0)
+    my_scrollbar.config(command = my_listbox.yview)
+    my_scrollbar.pack(side = RIGHT,fill=Y)
+    my_frame1.place(x=20, y=35)
+    my_listbox.pack(pady=15)
+    mycursor.execute("select name from company")
+    for x in mycursor:
+        print(x)
+        my_listbox.insert(0,x[0])
+        my_listbox.config(font=('arial',10,'bold'))
+    my_listbox.bind('<<ListboxSelect>>')
        
 
 def shut():
@@ -393,37 +445,6 @@ def choice(option):
         pass
     else:
         messagebox.showinfo('Yow will now return to application screen')
-    
-def choice1():
-    pop1 = Toplevel()
-    pop1.title("Company List")
-    pop1.geometry("380x250")
-    pop1.resizable(False,False)
-    Label(pop1, text='Tax Details',).place(x=20, y=100)
-    gsttx = Label(pop1, text='Taxability:').place(x=20, y=140)
-    gcmb2 = ttk.Combobox(pop1, width=35)
-    gcmb2.place(x=210,y=140)
-    gcmb2['values'] = ['Unknown','Exempt','Nil Rated','Taxable']
-    Label(pop1, text='Tax Type',).place(x=20, y=170)
-    Label(pop1, text='Rate',).place(x=210, y=170)
-    inttax  = Label(pop1, text='Integrated Tax:').place(x=20, y=200)
-    intx = StringVar()
-    entry1 = Entry(pop1, textvariable=intx,
-                   width=38)
-    entry1.place(x=210, y=200)
-    entry1.insert(0,'%')
-    cess = Label(pop1, text='Cess:').place(x=20, y=230)
-    ctx = StringVar()
-    entry2 = Entry(pop1,textvariable=ctx,width=38)
-    entry2.place(x=210, y=230)
-    entry2.insert(0,'%')
-    gstt_btn = Button(pop1, text='Submit', width=18, fg="white", font=("arial", 13),bg='green',activebackground="yellow",command='stt',relief=GROOVE).place(x=160, y=280)
-
-def stt() :
-    pop11 = Toplevel()
-    pop11.title("Company List")
-    pop11.geometry("380x250")
-    pop11.resizable(False,False)   
     
 
 root.mainloop()
