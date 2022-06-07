@@ -105,7 +105,7 @@ def chnge_cmpny() :
     Label(chngscrn, text='Group Creation', bg="blue",
           font='17', fg="white", width=430).pack()
 
-
+    
 def group():
     grpscrn = Toplevel(root)
     grpscrn.title('CREATE')

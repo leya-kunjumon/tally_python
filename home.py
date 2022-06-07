@@ -364,7 +364,8 @@ def select():
        
     my_frame = Frame(screen6)
     my_scrollbar = Scrollbar(my_frame,orient='vertical')
-    my_listbox = Listbox(my_frame,yscrollcommand=my_scrollbar.set,width=60,height=15,bg="lavender",borderwidth=0)
+    my_listbox = Listbox(my_frame, yscrollcommand=my_scrollbar.set,
+                         width=55, height=16, bg="lavender", borderwidth=0)
     my_scrollbar.config(command = my_listbox.yview)
     my_scrollbar.pack(side = RIGHT,fill=Y)
     my_frame.place(x=20,y=30)
@@ -373,6 +374,7 @@ def select():
     for x in mycursor:
         print(x)
         my_listbox.insert(0,x[0])
+        my_listbox.config(font=('arial', 10, 'bold'))
     my_listbox.bind('<<ListboxSelect>>', select1)
 
         
@@ -400,45 +402,46 @@ def shut_company() :
     # for i in mycursor.fetchall():
     #    Button(shut2_frame,text=i[0],fg="black",width=20,border=0,font=( "arial", 13),
     #    activebackground="yellow",command=shut).grid(column=0,pady=10,padx=40)
+    def shut(event):
+      global pop 
+      pop = Toplevel(screen7)
+      pop.title("shut company")
+      pop.geometry("380x250")
+      pop.resizable(False,False)
+      image = Image.open('images/warning1.png')
+      image = image.resize((70,80),Image.ANTIALIAS)
+      global img
+      img = ImageTk.PhotoImage(image)
+      my_img = Label(pop,image=img)
+      my_img.pack()
+      LST1 = my_listbox.get(ANCHOR)
+      print(LST1)
+      pop_label = Label(pop,text="Do you want to shut the company?",fg="red",font=("helvetica",12))
+      pop_label.pack(pady=40)
+      new_frame = Frame(pop)
+      new_frame.pack(pady=5)
+      yes = Button(new_frame,text="YES",fg="white",width=20,bg="red",relief=SUNKEN,command=lambda:choice("yes"))
+      yes.grid(row=2,column=2)
+      no = Button(new_frame, text="NO", fg="white", width=20,bg="green", relief=SUNKEN,command=lambda: choice("no"))
+      no.grid(row=2,column=3,padx=10)
+    
     my_frame1 = Frame(screen7)
     my_scrollbar = Scrollbar(my_frame1,orient='vertical')
     my_listbox = Listbox(my_frame1, yscrollcommand=my_scrollbar.set,
-                         width=55, height=20, bg="lavender", borderwidth=0)
+                         width=55, height=16, bg="lavender", borderwidth=0)
     my_scrollbar.config(command = my_listbox.yview)
     my_scrollbar.pack(side = RIGHT,fill=Y)
-    my_frame1.place(x=20, y=35)
-    my_listbox.pack(pady=15)
+    my_frame1.place(x=20,y=30)
+    my_listbox.pack(pady=10)
     mycursor.execute("select name from company")
     for x in mycursor:
         print(x)
         my_listbox.insert(0,x[0])
-        my_listbox.config(font=('arial',10,'bold'))
-    my_listbox.bind('<<ListboxSelect>>')
+        my_listbox.config(font=('arial', 10, 'bold'))
+    my_listbox.bind('<<ListboxSelect>>',shut)
        
 
-def shut():
-    global pop 
-    pop = Toplevel(screen7)
-    pop.title("shut company")
-    pop.geometry("380x250")
-    pop.resizable(False,False)
-    image = Image.open('images/warning1.png')
-    image = image.resize((70,80),Image.ANTIALIAS)
-    global img
-    img = ImageTk.PhotoImage(image)
-    my_img = Label(pop,image=img)
-    my_img.pack()
-    pop_label = Label(pop,text="Do you want to shut the company?",fg="red",font=("helvetica",12))
-    pop_label.pack(pady=40)
-    new_frame = Frame(pop)
-    new_frame.pack(pady=5)
-    
-    yes = Button(new_frame,text="YES",fg="white",width=20,bg="red",relief=SUNKEN,command=lambda:choice("yes"))
-    yes.grid(row=2,column=2)
-    no = Button(new_frame, text="NO", fg="white", width=20,
-                bg="green", relief=SUNKEN, command=lambda: choice("no"))
-    no.grid(row=2,column=3,padx=10)
-    
+
 def choice(option):
     pop.destroy()
     if option =="yes":
