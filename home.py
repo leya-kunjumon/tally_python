@@ -376,9 +376,9 @@ def select():
         my_listbox.insert(0,x[0])
         my_listbox.config(font=('arial', 10, 'bold'))
     my_listbox.bind('<<ListboxSelect>>', select1)
+    
 
         
-
 def shut_company() :
     global screen7
     screen7 = Toplevel(root)
@@ -387,43 +387,32 @@ def shut_company() :
     screen7.geometry('430x430')
     Label(screen7, text='List Of Companies', bg="navyblue",
           font='17', fg="white", width=640).pack()
-    # shut_frame = Frame(screen7)
-    # shut_frame.pack(fill=BOTH,expand=1)
-    # my_canvas = Canvas(shut_frame)
-    # my_canvas.pack(side=LEFT,fill=BOTH,expand=1)
-    # shut_scroll = ttk.Scrollbar(shut_frame,orient=VERTICAL,command=my_canvas.yview)
-    # shut_scroll.pack(side=RIGHT,fill=Y)
-    # my_canvas.configure(yscrollcommand=shut_scroll.set)
-    # my_canvas.bind('<Configure>',lambda e:my_canvas.configure(scrollregion=my_canvas.bbox("all")))
-    # shut2_frame = Frame(my_canvas)
-    # my_canvas.create_window((0,0),window=shut2_frame,anchor="nw")
-    
-    # mycursor.execute('SELECT name FROM company')
-    # for i in mycursor.fetchall():
-    #    Button(shut2_frame,text=i[0],fg="black",width=20,border=0,font=( "arial", 13),
-    #    activebackground="yellow",command=shut).grid(column=0,pady=10,padx=40)
+
     def shut(event):
-      global pop 
-      pop = Toplevel(screen7)
-      pop.title("shut company")
-      pop.geometry("380x250")
-      pop.resizable(False,False)
-      image = Image.open('images/warning1.png')
-      image = image.resize((70,80),Image.ANTIALIAS)
-      global img
-      img = ImageTk.PhotoImage(image)
-      my_img = Label(pop,image=img)
-      my_img.pack()
-      LST1 = my_listbox.get(ANCHOR)
-      print(LST1)
-      pop_label = Label(pop,text="Do you want to shut the company?",fg="red",font=("helvetica",12))
-      pop_label.pack(pady=40)
-      new_frame = Frame(pop)
-      new_frame.pack(pady=5)
-      yes = Button(new_frame,text="YES",fg="white",width=20,bg="red",relief=SUNKEN,command=lambda:choice("yes"))
-      yes.grid(row=2,column=2)
-      no = Button(new_frame, text="NO", fg="white", width=20,bg="green", relief=SUNKEN,command=lambda: choice("no"))
-      no.grid(row=2,column=3,padx=10)
+       global pop
+       pop = Toplevel(screen7)
+       pop.title("shut company")
+       pop.geometry("380x250")
+       pop.resizable(False, False)
+       image = Image.open('images/warning1.png')
+       image = image.resize((70, 80), Image.ANTIALIAS)
+       img = ImageTk.PhotoImage(image)
+       my_img = Label(pop, image=img)
+       my_img.pack()
+       # LST1 = my_listbox.get(ANCHOR)
+       # print(LST1)
+       pop_label = Label(pop, text="Do you want to shut the company?",
+                      fg="red", font=("helvetica", 12))
+       pop_label.pack(pady=40)
+       new_frame = Frame(pop)
+       new_frame.pack(pady=5)
+       yes = Button(new_frame, text="YES", fg="white", width=20,
+                 bg="red", relief=SUNKEN, command=lambda: choice("yes"))
+       yes.grid(row=2, column=2)
+       no = Button(new_frame, text="NO", fg="white", width=20,
+                bg="green", relief=SUNKEN, command=lambda: choice("no"))
+       no.grid(row=2, column=3, padx=10)
+    
     
     my_frame1 = Frame(screen7)
     my_scrollbar = Scrollbar(my_frame1,orient='vertical')
@@ -439,13 +428,15 @@ def shut_company() :
         my_listbox.insert(0,x[0])
         my_listbox.config(font=('arial', 10, 'bold'))
     my_listbox.bind('<<ListboxSelect>>',shut)
-       
+    
 
 
+    
+  
 def choice(option):
-    pop.destroy()
     if option =="yes":
-        pass
+        pop.destroy()
+        screen7.destroy()
     else:
         messagebox.showinfo('Yow will now return to application screen')
     
