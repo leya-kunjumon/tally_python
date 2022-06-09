@@ -114,6 +114,7 @@ def func2():
     sbmibtn2 = Button(screen2, text='Alter Company',command=alter,fg='black',font=('Arial',9),activebackground='yellow',width=30,border=0).place(x=240,y=70)
     sbmibtn3 = Button(screen2, text='Select Company',command=select,fg='black',font=('Arial',9),activebackground='yellow',width=30,border=0).place(x=240,y=100)
     sbmibtn4 = Button(screen2, text='Shut Company', command=shut_company, fg='black',font=('Arial',9),activebackground='yellow', width=30, border=0).place(x=240, y=130)
+   
     my_frame = Frame(screen2)
     my_scrollbar = Scrollbar(my_frame,orient='vertical')
     my_listbox = Listbox(my_frame,yscrollcommand=my_scrollbar.set,width=60)
@@ -344,7 +345,6 @@ def submit3():
     messagebox.showinfo('Updated successfully')
     
 def select():
-    global screen6
     screen6 = Toplevel(root)
     screen6.resizable(False, False)
     screen6.title('List Of Companies')
@@ -378,7 +378,6 @@ def select():
     my_listbox.bind('<<ListboxSelect>>', select1)
     
 
-        
 def shut_company() :
     global screen7
     screen7 = Toplevel(root)
@@ -390,17 +389,17 @@ def shut_company() :
 
     def shut(event):
        global pop
-       pop = Toplevel(screen7)
+       pop = Toplevel()
        pop.title("shut company")
-       pop.geometry("380x250")
+       pop.geometry("380x280")
        pop.resizable(False, False)
-       image = Image.open('images/warning1.png')
+       image = Image.open('images/warning2.png')
        image = image.resize((70, 80), Image.ANTIALIAS)
        img = ImageTk.PhotoImage(image)
        my_img = Label(pop, image=img)
        my_img.pack()
-       # LST1 = my_listbox.get(ANCHOR)
-       # print(LST1)
+       LST1 = my_listbox.get(ANCHOR)
+       print(LST1)
        pop_label = Label(pop, text="Do you want to shut the company?",
                       fg="red", font=("helvetica", 12))
        pop_label.pack(pady=40)
@@ -411,8 +410,8 @@ def shut_company() :
        yes.grid(row=2, column=2)
        no = Button(new_frame, text="NO", fg="white", width=20,
                 bg="green", relief=SUNKEN, command=lambda: choice("no"))
-       no.grid(row=2, column=3, padx=10)
-    
+       no.grid(row=2, column=3, padx=10)    
+
     
     my_frame1 = Frame(screen7)
     my_scrollbar = Scrollbar(my_frame1,orient='vertical')
@@ -423,23 +422,40 @@ def shut_company() :
     my_frame1.place(x=20,y=30)
     my_listbox.pack(pady=10)
     mycursor.execute("select name from company")
-    for x in mycursor:
+    for x in mycursor.fetchall():
         print(x)
         my_listbox.insert(0,x[0])
         my_listbox.config(font=('arial', 10, 'bold'))
     my_listbox.bind('<<ListboxSelect>>',shut)
     
 
-
-    
-  
 def choice(option):
     if option =="yes":
         pop.destroy()
         screen7.destroy()
+        
     else:
         messagebox.showinfo('Yow will now return to application screen')
-    
+        
+def shut1():
+    pop1 = Toplevel()
+    pop1.title("shut company")
+    pop1.geometry("380x250")
+    pop1.resizable(False, False)
+    image = Image.open('images/warning2.png')
+    image = image.resize((70, 80), Image.ANTIALIAS)
+    img = ImageTk.PhotoImage(image)
+    my_img = Label(pop1, image=img)
+    my_img.pack()    
+
+
+def unitt_alter():
+    altunitscrn = Toplevel(root)
+    altunitscrn.title('ALTER')
+    altunitscrn.geometry('500x500')
+    Label(altunitscrn, text='CREATE', bg="navyblue",
+          font='17', fg="white", width=430).pack()
+
 
 root.mainloop()
 
