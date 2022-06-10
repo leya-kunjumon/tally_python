@@ -27,6 +27,27 @@ mycursor=mydb.cursor()
 #                       currency varchar(200),
 #                       PRIMARY KEY(companyid))
 #                 """)
+                
+# mycursor.execute("""
+#                  create table companyAble(
+#                      companyid int AUTO_INCREMENT, 
+#                      name varchar(255),
+#                      mailing_name varchar(255),
+#                      address varchar(255),
+#                       email varchar(255),
+#  		             state varchar(255),
+#  		             country varchar(255),
+#  		             pincode int,
+#                       telephone varchar(200),
+#                       mobile varchar(200),
+#                       fax varchar(200),
+#                       website varchar(200),
+#                       financial_year DATE,
+#                       year_begin DATE,
+#                       currencysign varchar(100),
+#                       currency varchar(200),
+#                       PRIMARY KEY(companyid))
+#                 """)
 
 # mycursor.execute(
 #     "create table currency(symbol c,formal_name varchar(200),currency_code varchar(200),decimal_places int,amount_in_millions varchar(100),suffix_symbol varchar(100),space varchar(100),word_repsn varchar(100),decimal_words varchar(200))")
