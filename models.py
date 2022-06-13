@@ -76,12 +76,13 @@ mycursor=mydb.cursor()
 # mycursor.execute(
 #     "create table PAN(PAN_id int AUTO_INCREMENT,PAN_NUMBER varchar(200),PRIMARY KEY(PAN_id))") 
 
-# mycursor.execute("create table mastergroup(grp_id int AUTO_INCREMENT,name varchar(200),grp_under varchar(200),grp_ledger varchar(100),balance_reporting varchar(100),calculn_used varchar(100),method varchar(200),PRIMARY KEY(grp_id))")
+# mycursor.execute("create table mastergroup(grp_id int AUTO_INCREMENT,name varchar(200),grp_under varchar(200),grp_ledger varchar(100),balance_reporting varchar(100),calculn_used varchar(100),method varchar(200),company_name varchar(100),PRIMARY KEY(grp_id))")
 
 # mycursor.execute(
 #     "create table master_ledger(ledger_id int AUTO_INCREMENT,name varchar(200),under varchar(200),type varchar(200),gst_applicable varchar(200),set_gst varchar(100),supply_type varchar(200),mail_name varchar(200),addrss varchar(200),state varchar(200),country varchar(200),pincode int,bank_details varchar(100),pan_no varchar(200),PRIMARY KEY(ledger_id))")
 # mycursor.execute(
 #     "create table ledger_gst(gst_id int AUTO_INCREMENT,transaction_nature varchar(200), taxability varchar(200), integrate_tax varchar(100), cess varchar(100),PRIMARY KEY(gst_id))")
-# mycursor.execute('drop table master_ledger')
+
+# mycursor.execute('drop table mastergroup')
 
 

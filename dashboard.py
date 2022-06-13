@@ -102,6 +102,7 @@ def create_master():
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
         
 def change_company():
+    global changescrn
     changescrn = Toplevel(root)
     changescrn.title('CREATE')
     changescrn.geometry('380x300')
@@ -118,16 +119,14 @@ def change_company():
     comcmb = ttk.Combobox(changescrn, width=35)
     comcmb.place(x=130, y=70)
     comcmb['values'] = chng_cmpny
-    chng_btn = Button(changescrn, text='Submit', width=17, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=chnge_cmpny,relief=GROOVE).place(x=140, y=120)
+    chng_btn = Button(changescrn, text='Submit', width=17, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=change,relief=GROOVE).place(x=140, y=120)
 
-def chnge_cmpny() :
-    chngscrn = Toplevel(root)
-    chngscrn.title('CREATE')
-    chngscrn.geometry('600x500')
-    Label(chngscrn, text='Group Creation', bg="blue",
-          font='17', fg="white", width=430).pack()
+def change() :
+    changescrn.destroy()
+    # messagebox.showinfo('Change Company Successfully')
 
-    
+
+
 def group():
     grpscrn = Toplevel(root)
     grpscrn.title('CREATE')
@@ -168,8 +167,10 @@ def grp_submit():
     grp_blnce = grpcmb2.get()
     grp_calcn = grpcmb3.get()
     grp_method = grpcmb4.get()
-    sql = 'INSERT INTO mastergroup(name,grp_under,grp_ledger,balance_reporting ,calculn_used,method)  VALUES(%s,%s,%s,%s,%s,%s)'
-    val = (grp_name,grp_under,grp_ledger,grp_blnce,grp_calcn,grp_method)
+    grp_cmny = comcmb.get()
+    sql = 'INSERT INTO mastergroup(name,grp_under,grp_ledger,balance_reporting ,calculn_used,method,company_name)  VALUES(%s,%s,%s,%s,%s,%s,%s)'
+    val = (grp_name, grp_under, grp_ledger,
+           grp_blnce, grp_calcn, grp_method, grp_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Create Group Successfully')
@@ -1317,9 +1318,15 @@ def shut_company() :
     my_listbox.bind('<<ListboxSelect>>',shut)
     
 
-
-        
 company = Button(frame3, text="Company", width=20, fg="black", font=(
     "impact", 8), command=func2, activebackground="yellow", activeforeground="red").place(x=13, y=50)
 
+
 root.mainloop()
+
+
+
+
+
+
+
