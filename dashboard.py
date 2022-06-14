@@ -103,7 +103,7 @@ def create_master():
         
 def change_company():
     global changescrn
-    changescrn = Toplevel(root)
+    changescrn = Toplevel()
     changescrn.title('CREATE')
     changescrn.geometry('380x300')
     Label(changescrn, text='Change Company', bg="navyblue",
@@ -122,13 +122,11 @@ def change_company():
     chng_btn = Button(changescrn, text='Submit', width=17, fg="white", font=( "arial", 13),bg='green',activebackground="yellow",command=change,relief=GROOVE).place(x=140, y=120)
 
 def change() :
-    changescrn.destroy()
-    # messagebox.showinfo('Change Company Successfully')
-
+    messagebox.showinfo('Change Company Successfully')
 
 
 def group():
-    grpscrn = Toplevel(root)
+    grpscrn = Toplevel()
     grpscrn.title('CREATE')
     grpscrn.geometry('600x500')
     Label(grpscrn, text='Group Creation', bg="blue",
@@ -150,7 +148,7 @@ def group():
     grp_nett = ['Yes','No']
     grpcmb2 = ttk.Combobox(grpscrn, value=grp_nett, width=35)
     grpcmb2.place(x=250, y=160)
-    grpcalc = Label(grpscrn, text='Used for Calculation:').place(x=20, y=190)
+    grpcalc = Label(grpscrn,text='Used for Calculation:').place(x=20, y=190)
     grp_calcu = ['Yes','No']
     grpcmb3 = ttk.Combobox(grpscrn, value=grp_calcu, width=35)
     grpcmb3.place(x=250, y=190)
@@ -307,8 +305,11 @@ def ledger_submit():
     ledg_pncode = ledg_pincod.get()
     ledg_cmb5 = cmb5.get()
     ledg_itax = ledg_intax.get()
-    sql = 'INSERT INTO master_ledger(name,under,type,gst_applicable,set_gst,supply_type,mail_name,addrss,state,country,pincode,bank_details,pan_no)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-    val = (ledg_nmee,ledg_cmb,ledg_cmb1,ledg_cmb2,ledg_cmb3,ledg_cmb4,ledg_namee,ledg_addrss,ledg_stte,ledg_cuntry,ledg_pncode,ledg_cmb5,ledg_itax)
+    ledg_cmny = comcmb.get()
+    
+    sql = 'INSERT INTO master_ledger(name,under,type,gst_applicable,set_gst,supply_type,mail_name,addrss,state,country,pincode,bank_details,pan_no,company_name)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (ledg_nmee, ledg_cmb, ledg_cmb1, ledg_cmb2, ledg_cmb3, ledg_cmb4, ledg_namee,
+           ledg_addrss, ledg_stte, ledg_cuntry, ledg_pncode, ledg_cmb5, ledg_itax, ledg_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Create Ledger Successfully')
@@ -375,8 +376,10 @@ def crncy_submit():
     shw_plc = entry7.get()
     word_repsn = word.get()
     deci_plces = deci_plc.get()
-    sql = 'INSERT INTO currency(symbol,formal_name,currency_code,decimal_places,amount_in_millions,suffix_symbol,space,word_repsn,decimal_words)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)'
-    val = (currncy_sym,formal_name,code,dec_plc,show_plc,suffx_plc,shw_plc,word_repsn,deci_plces)
+    curn_cmny = comcmb.get()
+    
+    sql = 'INSERT INTO currency(symbol,formal_name,currency_code,decimal_places,amount_in_millions,suffix_symbol,space,word_repsn,decimal_words,company_name)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    val = (currncy_sym,formal_name,code,dec_plc,show_plc,suffx_plc,shw_plc,word_repsn,deci_plces,curn_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Create Currency Successfully')
@@ -461,9 +464,10 @@ def voucher_submit():
     vouc_narrtn = vou_entry7.get()
     vouc_ledger = vou_entry8.get()
     vouc_save = vou_entry9.get()
-    sql = 'INSERT INTO voucher(name,type,abbreviation,voucher_activate,voucher_method,Use_effective_dates,allow_zero_valued,voucher_type_optional,voucher_narration,ledger_narration,voucher_saving)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    vouc_cmny = comcmb.get()
+    sql = 'INSERT INTO voucher(name,type,abbreviation,voucher_activate,voucher_method,Use_effective_dates,allow_zero_valued,voucher_type_optional,voucher_narration,ledger_narration,voucher_saving,company_name)  VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
     val = (vouc_namee, vouc_type, vouc_abbrvn, vouc_actvn,
-           vouc_method, vouc_date, vouc_value, vouc_typ_optional, vouc_narrtn, vouc_ledger, vouc_save)
+           vouc_method, vouc_date, vouc_value, vouc_typ_optional, vouc_narrtn, vouc_ledger, vouc_save, vouc_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Create Voucher Successfully')
@@ -496,8 +500,9 @@ def stock_submit():
     stck_under = stockk_under.get()
     stck_qnty = stock_entry3.get()
     stck_details = stock_entry4.get()
-    sql = 'INSERT INTO stockGroup(name,stock_under,stock_quantities,stock_details) VALUES(%s,%s,%s,%s)'
-    val = (stck_name, stck_under,stck_qnty,stck_details)
+    stck_cmny = comcmb.get()
+    sql = 'INSERT INTO stockGroup(name,stock_under,stock_quantities,stock_details,company_name) VALUES(%s,%s,%s,%s,%s)'
+    val = (stck_name, stck_under, stck_qnty, stck_details, stck_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Stock Group Successfully Created')
@@ -518,8 +523,9 @@ def stock_catagory():
 
 def stock_catagsubmit():
     stck_catag = stock_product.get()
-    sql = 'INSERT INTO stock_Catagory(name) VALUES(%s)'
-    val = (stck_catag,)
+    stck_cmny = comcmb.get()
+    sql = 'INSERT INTO stock_Catagory(name,company_name) VALUES(%s,%s)'
+    val = (stck_catag,stck_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Stock Catagory Successfully Created')
@@ -573,8 +579,10 @@ def stock_itemsubmit():
     stck_gst = stock_entry6.get()
     stck_detail = stock_entry7.get()
     stck_supply = stock_entry8.get()
-    sql = 'INSERT INTO stock_item(name,stock_under,units,gst_applicable,gst_details,supply_type) VALUES(%s,%s,%s,%s,%s,%s)'
-    val = (stck_nme,stck_under,stck_units, stck_gst,stck_detail, stck_supply)
+    stck_cmny = comcmb.get()
+    sql = 'INSERT INTO stock_item(name,stock_under,units,gst_applicable,gst_details,supply_type,company_name) VALUES(%s,%s,%s,%s,%s,%s,%s)'
+    val = (stck_nme, stck_under, stck_units, stck_gst,
+           stck_detail, stck_supply, stck_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Stock Item Successfully Created')
@@ -616,8 +624,10 @@ def unit_submit():
     unit_formall = unit_formal.get()
     unit_quntity = unit_qntity.get()
     unit_deci = unit_plces.get()
-    sql = 'INSERT INTO unit(type,symbol,formal_name,quantity_code,no_of_decimal_places) VALUES(%s,%s,%s,%s,%s)'
-    val = (unit_typ, unit_symbol, unit_formall, unit_quntity, unit_deci)
+    unit_cmny = comcmb.get()
+    sql = 'INSERT INTO unit(type,symbol,formal_name,quantity_code,no_of_decimal_places,company_name) VALUES(%s,%s,%s,%s,%s,%s)'
+    val = (unit_typ, unit_symbol, unit_formall,
+           unit_quntity, unit_deci, unit_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Unit Successfully Created')
@@ -643,8 +653,9 @@ def godown():
 def gdwn_submit():
     gd_name = gdwn_nme.get()
     gd_under = gdwn_under.get()
-    sql = 'INSERT INTO godown(name,under) VALUES(%s,%s)'
-    val = (gd_name, gd_under)
+    gd_cmny = comcmb.get()
+    sql = 'INSERT INTO godown(name,under,company_name) VALUES(%s,%s,%s)'
+    val = (gd_name, gd_under, gd_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('Godown Successfully Created')
@@ -764,9 +775,10 @@ def gst_submit():
     gstt_revrse = gst_entry17.get()
     gstt_cls = gst_entry18.get()
     gstt_bond = gst_entry19.get()
-    sql = 'INSERT INTO gst(state,bill_applicable,reg_type,applicable_from,assessee,threshold_limit_includes,gst_applicable,threshold_limit,periodicity,applcble_intrastate,cess_applicable,threshold_limit1,gst_details,print_bill,advance_receipts,invoice_applicable,reverse_charge,gst_class,bond_details) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
+    gstt_cmny = comcmb.get()
+    sql = 'INSERT INTO gst(state,bill_applicable,reg_type,applicable_from,assessee,threshold_limit_includes,gst_applicable,threshold_limit,periodicity,applcble_intrastate,cess_applicable,threshold_limit1,gst_details,print_bill,advance_receipts,invoice_applicable,reverse_charge,gst_class,bond_details,company_name) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)'
     val = (gstt_state,gstt_applcble,gstt_type,
-           gstt_appfrom,gstt_assesee,gstt_threshold,gstt_applfrom,gstt_threshold1,gstt_periodcity,gstt_intrastate,gstt_cess,gstt_threshold2,gstt_detls, gstt_print, gstt_advnce,gstt_invoice,gstt_revrse,gstt_cls,gstt_bond)
+           gstt_appfrom,gstt_assesee,gstt_threshold,gstt_applfrom,gstt_threshold1,gstt_periodcity,gstt_intrastate,gstt_cess,gstt_threshold2,gstt_detls, gstt_print, gstt_advnce,gstt_invoice,gstt_revrse,gstt_cls,gstt_bond,gstt_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('gst Successfully Created')
@@ -788,8 +800,9 @@ def Pan_details():
         
 def PAN_submit():
     pan_no = pan_nme.get()
-    sql = 'INSERT INTO PAN(PAN_NUMBER) VALUES(%s)'
-    val = (pan_no,)
+    pan_cmny = comcmb.get()
+    sql = 'INSERT INTO PAN(PAN_NUMBER,company_name) VALUES(%s,%s)'
+    val = (pan_no,pan_cmny)
     mycursor.execute(sql,val)
     mydb.commit()
     messagebox.showinfo('PAN Details Successfully Created')
@@ -821,6 +834,7 @@ def rateof_exchnge():
           font=('arial', 11), fg="black").place(x=760, y=100)
     Label(ratescrn, text='Specified Rate',
           font=('arial', 11), fg="black").place(x=900, y=100)
+
 
 b1 = Button(root, text="Create", fg="black", activebackground="yellow",
             bg="silver", width=20, height=1, command=create_master).place(x=830, y=180)
@@ -865,6 +879,11 @@ def master_alter():
     Button(altscrn, text='PAN/CIN Details', command=Pan_details_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
         
+
+
+
+
+
 def group_alter():
     altgrpscrn = Toplevel(root)
     altgrpscrn.title('ALTER')
