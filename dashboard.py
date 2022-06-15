@@ -53,7 +53,7 @@ ord_previewtree.heading("2", text="Date Of Last Entry")
 ord_previewtree.place(x=5, y=130, width=600,height=550)
 separator = ttk.Separator(root, orient='vertical')
 separator.place(relx=0.47, rely=0, relwidth=0.2, relheight=1)
-frame = Label(root, text="Gateway of Tally", bg="blue", fg="white",
+frame = Label(root, text="Gateway of Tally", bg="skyblue", fg="black",
               width=40, padx=20, pady=10).place(x=740, y=65)
 frame1 = Frame(root, bg="black", width=305, height=570)
 frame1.place(x=740, y=100)
@@ -62,7 +62,7 @@ frame2.pack(pady=10, padx=10)
 mstrs = Label(root, text="MASTERS", bg="skyblue",
               fg="black", font="17").place(x=850, y=150)
 
-def create_master():
+def create_master() :
     screen1 = Toplevel(root)
     screen1.title('CREATE')
     screen1.geometry('500x500')
@@ -72,6 +72,9 @@ def create_master():
           font=('Arial', 11), fg="black").place(x=10, y=50)
     Button(screen1, text='Change Company', command=change_company, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=308, y=50)
+    Button(screen1, text='Show More', command=change_company, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=308, y=70)
+    
     Button(screen1, text='Group', command=group, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=70)
     Button(screen1, text='Ledger', command=ledger, fg='black', font=(
@@ -124,20 +127,20 @@ def change_company():
 def change() :
     messagebox.showinfo('Change Company Successfully')
 
-
 def group():
     grpscrn = Toplevel()
     grpscrn.title('CREATE')
     grpscrn.geometry('600x500')
     Label(grpscrn, text='Group Creation', bg="blue",
-          font='17', fg="white", width=430).pack()
+    font='17', fg="white", width=430).pack()
     global grpname, grpcmb, grpcmb1, grpcmb2, grpcmb3,grpcmb4
     gname = Label(grpscrn, text='Name:').place(x=20, y=70)
     grpname = StringVar()
-    grpentry1 = Entry(grpscrn, textvariable=grpname,
-                   width=38).place(x=250, y=70)
+    grpentry1 = Entry(grpscrn, textvariable=grpname,width=38).place(x=250, y=70)
     gunder = Label(grpscrn, text='Under:').place(x=20, y=100)
-    grp_under = ['Bank Accounts','Bank OCC A/c','Bank OD A/c','Branch/Divisions','Capital Account','Cash-in-Hand','Current Assets','Current Liabilities','Deposits(Asset)','Direct Expenses','Direct Income','Duties & Taxes','Expenses(Direct)','Expenses(Indirect)','Fixed Assets','Income(Direct)','Income(Indirect)','Indirect Expenses','Indirect Incomes','Investments','Loans & Advances(Asset)','Loans(Liability)','Misc Expenses(ASSET)','Provisions','Purchase Account','Reserves & Surplus','Retained Earnings','Sales Accounts','Secured Loans','Stock-in-Hand','Sundry Creditors','Sundry Debitors','Suspense A/c','Unsecured Loans']
+    grp_under = ['Bank Accounts','Bank OCC A/c','Bank OD A/c','Branch/Divisions','Capital Account',
+    'Cash-in-Hand','Current Assets','Current Liabilities','Deposits(Asset)','Direct Expenses','Direct Income','Duties & Taxes','Expenses(Direct)','Expenses(Indirect)','Fixed Assets','Income(Direct)',
+    'Income(Indirect)','Indirect Expenses','Indirect Incomes','Investments','Loans & Advances(Asset)','Loans(Liability)','Misc Expenses(ASSET)','Provisions','Purchase Account','Reserves & Surplus','Retained Earnings','Sales Accounts','Secured Loans','Stock-in-Hand','Sundry Creditors','Sundry Debitors','Suspense A/c','Unsecured Loans']
     grpcmb = ttk.Combobox(grpscrn, value=grp_under, width=35)
     grpcmb.place(x=250, y=100)
     grpledg = Label(grpscrn, text='Group behaves like a ledger:').place(x=20, y=130)
@@ -1293,11 +1296,10 @@ def shut_company() :
        pop.title("shut company")
        pop.geometry("380x280")
        pop.resizable(False, False)
-       image = Image.open('images/warning2.png')
-       image = image.resize((70, 80), Image.ANTIALIAS)
-       img = ImageTk.PhotoImage(image)
-       my_img = Label(pop, image=img)
-       my_img.pack()
+       canvas = Canvas(pop, width = 100, height = 100)      
+       canvas.pack()      
+       img = PhotoImage(file='images/warning2.png')      
+       canvas.create_image(20,20, anchor=NW, image=img)
        LST1 = my_listbox.get(ANCHOR)
        print(LST1)
        pop_label = Label(pop, text="Do you want to shut the company?",
