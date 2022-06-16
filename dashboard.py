@@ -65,44 +65,54 @@ mstrs = Label(root, text="MASTERS", bg="skyblue",
 def create_master() :
     screen1 = Toplevel(root)
     screen1.title('CREATE')
-    screen1.geometry('500x500')
+    screen1.geometry('500x650')
     Label(screen1, text='List Of Masters', bg="blue",
           font='17', fg="white", width=430).pack()
     Label(screen1, text='Accounting Masters',
-          font=('Arial', 11), fg="black").place(x=10, y=50)
+          font=('Arial', 11), fg="black").place(x=10, y=100)
     Button(screen1, text='Change Company', command=change_company, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=308, y=50)
-    Button(screen1, text='Show More', command=change_company, fg='black', font=(
+        
+    def showMore() :  
+        Button(screen1, text='Budget',fg='black', font=(
+            'Arial', 10), activebackground='yellow', border=0).place(x=13, y=220) 
+        
+        Button(screen1, text='Scenario',fg='black', font=(
+            'Arial', 10), activebackground='yellow', border=0).place(x=13, y=240)
+        Button(screen1, text='Credit Limits',fg='black', font=(
+            'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260) 
+                        
+    Button(screen1, text='Show More', command=showMore, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=308, y=70)
     
     Button(screen1, text='Group', command=group, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=70)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=120)
     Button(screen1, text='Ledger', command=ledger, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=90)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=140)
     Button(screen1, text='Currency', command=currency_creation, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=110)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=160)
     Button(screen1, text='Rate Of Exchange', command=rateof_exchnge, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=130)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=180)
     Button(screen1, text='Voucher Type', command=voucher_creation, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=150)
-    Label(screen1, text='Inventory Masters',
-          font=('Arial', 11), fg="black").place(x=10, y=180)
-    Button(screen1, text='Stock Group', command=stock_creation, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=200)
+    Label(screen1, text='Inventory Masters',
+          font=('Arial', 11), fg="black").place(x=10, y=290)
+    Button(screen1, text='Stock Group', command=stock_creation, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=310)
     Button(screen1, text='Stock Catagory', command=stock_catagory, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=220)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=330)
     Button(screen1, text='Stock Item', command=stock_item, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=240)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=350)
     Button(screen1, text='Unit', command=unit, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=370)
     Button(screen1, text='Godown', command=godown, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=280)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=390)
     Label(screen1, text='Statutory Details',
-          font=('Arial', 11), fg="black").place(x=10, y=310)
+          font=('Arial', 11), fg="black").place(x=10, y=420)
     Button(screen1, text='GST Details', command=gst_details, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=340)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=440)
     Button(screen1, text='PAN/CIN Details', command=Pan_details, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=460)
         
 def change_company():
     global changescrn
@@ -849,42 +859,43 @@ def master_alter():
     Label(altscrn, text='List Of Masters', bg="blue",
           font='17', fg="white", width=430).pack()
     Label(altscrn, text='Accounting Masters',
-          font=('Arial', 11),fg="black").place(x=10, y=50)
+          font=('Arial', 11),fg="black").place(x=10, y=110)
           
     Button(altscrn, text='Change Company', command=change_company, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=308, y=50)
+        'Arial', 10), activebackground='yellow', border=0).place(x=315, y=40)
+    Button(altscrn, text='Expand all', command='', fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=315, y=60)
+    Button(altscrn, text='Show More', command='', fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=315, y=80)
     Button(altscrn, text='Group', command=group_alter, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=70)
-    Button(altscrn, text='Ledger', command=ledger_alter, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=90)
-    Button(altscrn, text='Currency', command=currency_creation_alter, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=110)
-    Button(altscrn, text='Rate Of Exchange', command='', fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=130)
-    Button(altscrn, text='Voucher Type', command=voucher_creation_alter, fg='black', font=(
+    Button(altscrn, text='Ledger', command=ledger_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=150)
+    Button(altscrn, text='Currency', command=currency_creation_alter, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=170)
+    Button(altscrn, text='Rate Of Exchange', command='', fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=190)
+    Button(altscrn, text='Voucher Type', command=voucher_creation_alter, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=210)
     Label(altscrn, text='Inventory Masters',
-          font=('Arial', 11), fg="black").place(x=10, y=180)
+          font=('Arial', 11), fg="black").place(x=10, y=240)
     Button( altscrn, text='Stock Group', command=stock_creation_alter, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=200)
-    Button(altscrn, text='Stock Catagory', command=stock_catagory_alter, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=220)
-    Button(altscrn, text='Stock Item', command=stock_item_alter, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=240)
-    Button(altscrn, text='Unit', command=unit_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260)
-    Button(altscrn, text='Godown', command=godown_alter, fg='black', font=(
+    Button(altscrn, text='Stock Catagory', command=stock_catagory_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=280)
-    Label(altscrn, text='Statutory Details',
-          font=('Arial', 11), fg="black").place(x=10, y=310)
-    Button(altscrn, text='GST Details', command=gst_details_alter, fg='black', font=(
+    Button(altscrn, text='Stock Item', command=stock_item_alter, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=300)
+    Button(altscrn, text='Unit', command=unit_alter, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=320)
+    Button(altscrn, text='Godown', command=godown_alter, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=13, y=340)
+    Label(altscrn, text='Statutory Details',
+          font=('Arial', 11), fg="black").place(x=10, y=370)
+    Button(altscrn, text='GST Details', command=gst_details_alter, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=390)
     Button(altscrn, text='PAN/CIN Details', command=Pan_details_alter, fg='black', font=(
-        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=360)
+        'Arial', 10), activebackground='yellow', border=0).place(x=13, y=410)
         
-
-
-
 
 
 def group_alter():
