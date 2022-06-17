@@ -86,6 +86,12 @@ mycursor=mydb.cursor()
 # mycursor.execute(
 #     "create table ledger_gst(gst_id int AUTO_INCREMENT,transaction_nature varchar(200), taxability varchar(200), integrate_tax varchar(100), cess varchar(100),PRIMARY KEY(gst_id))")
 
+# mycursor.execute(
+#     "create table BUDGET(budget_id int AUTO_INCREMENT,budget_name varchar(100),under varchar(200),PRIMARY KEY(budget_id))")
+
+
+
+
 # mycursor.execute('drop table PAN')
 
 

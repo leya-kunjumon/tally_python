@@ -65,7 +65,7 @@ mstrs = Label(root, text="MASTERS", bg="skyblue",
 def create_master() :
     screen1 = Toplevel(root)
     screen1.title('CREATE')
-    screen1.geometry('500x650')
+    screen1.geometry('500x540')
     Label(screen1, text='List Of Masters', bg="blue",
           font='17', fg="white", width=430).pack()
     Label(screen1, text='Accounting Masters',
@@ -73,15 +73,71 @@ def create_master() :
     Button(screen1, text='Change Company', command=change_company, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=308, y=50)
         
+    def  showless()  :
+        Button(screen1, text='Show More', command=showMore, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=308, y=70)
+        # Button(screen1, text='Group', command=group, fg='black', font=(
+        # 'Arial', 10), activebackground='yellow', border=0).place(x=13, y=120)
+        # Button(screen1, text='Ledger', command=ledger, fg='black', font=(
+        # 'Arial', 10), activebackground='yellow', border=0).place(x=13, y=140)
+        # Button(screen1, text='Currency', command=currency_creation, fg='black', font=(
+        # 'Arial', 10), activebackground='yellow', border=0).place(x=13, y=160)
+        # Button(screen1, text='Rate Of Exchange', command=rateof_exchnge, fg='black', font=(
+        # 'Arial', 10), activebackground='yellow', border=0).place(x=13, y=180)
+        # Button(screen1, text='Voucher Type', command=voucher_creation, fg='black', font=(
+        # 'Arial', 10), activebackground='yellow', border=0).place(x=13, y=200)
+    
+    def budget()  :
+        budgetscrn = Toplevel()
+        budgetscrn.title('CREATE')
+        budgetscrn.geometry('380x300')
+        Label(budgetscrn, text='BUDGET CREATION', bg="blue",
+          font='17', fg="white", width=430).pack()
+        global budtname,budgtunder
+        bname = Label(budgetscrn, text='Name:').place(x=20, y=70)
+        budtname = StringVar()
+        bentry1 = Entry(budgetscrn, textvariable=budtname,
+                        width=38).place(x=120, y=70)
+        bunder = Label(budgetscrn, text='Under:').place(x=20, y=100)
+        budgtunder = StringVar()
+        bentry2 = Entry(budgetscrn,
+                        width=38, textvariable=budgtunder)
+        bentry2.place(x=120, y=100)
+        bentry2.insert(0,'*Primary')
+        budgt_btn = Button(budgetscrn, text='Submit', width=11, fg="white", font=(
+            "arial", 13), bg='green', activebackground="yellow", command=budgetSave, relief=GROOVE).place(x=130, y=160)
+    
+    def budgetSave()  :
+        budget_name =  budtname.get()
+        budget_under = budgtunder.get()
+        sql = 'INSERT INTO BUDGET(budget_name,under)  VALUES(%s,%s)'
+        val = (budget_name, budget_under)
+        mycursor.execute(sql,val)
+        mydb.commit()
+        messagebox.showinfo('Create Budget Successfully')
+    
+    
+    def Scenario() :
+        scrioscrn = Toplevel()
+        scrioscrn.title('CREATE')
+        scrioscrn.geometry('580x390')
+        Label(scrioscrn, text='SCENARIO CREATION', bg="blue",
+          font='17', fg="white", width=430).pack()
+    
+    
+    
     def showMore() :  
         Button(screen1, text='Budget',fg='black', font=(
-            'Arial', 10), activebackground='yellow', border=0).place(x=13, y=220) 
+            'Arial', 10),command=budget, activebackground='yellow', border=0).place(x=13, y=220) 
         
         Button(screen1, text='Scenario',fg='black', font=(
-            'Arial', 10), activebackground='yellow', border=0).place(x=13, y=240)
+            'Arial', 10),command=Scenario,activebackground='yellow', border=0).place(x=13, y=240)
         Button(screen1, text='Credit Limits',fg='black', font=(
-            'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260) 
-                        
+            'Arial', 10), activebackground='yellow', border=0).place(x=13, y=260)
+        
+        Button(screen1, text='Show less', command=showless, fg='black', font=(
+        'Arial', 10), activebackground='yellow', border=0).place(x=308, y=70) 
+        
     Button(screen1, text='Show More', command=showMore, fg='black', font=(
         'Arial', 10), activebackground='yellow', border=0).place(x=308, y=70)
     
