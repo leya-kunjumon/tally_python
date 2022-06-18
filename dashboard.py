@@ -123,8 +123,15 @@ def create_master() :
         scrioscrn.geometry('580x390')
         Label(scrioscrn, text='SCENARIO CREATION', bg="blue",
           font='17', fg="white", width=430).pack()
-    
-    
+        global ctname, scecmb1
+        scname = Label(scrioscrn, text='Name:').place(x=20, y=70)
+        sctname = StringVar()
+        bentry1 = Entry(scrioscrn, textvariable=sctname,
+                        width=38).place(x=170, y=70)
+        scinclude = Label(scrioscrn, text='Include Actuals:').place(x=20, y=100)
+        scin = ['Yes','No']
+        scecmb1 = ttk.Combobox(scrioscrn, value=scin, width=35)
+        scecmb1.place(x=170, y=130)
     
     def showMore() :  
         Button(screen1, text='Budget',fg='black', font=(
