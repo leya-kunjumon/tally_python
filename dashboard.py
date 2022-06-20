@@ -115,15 +115,15 @@ def create_master() :
         mycursor.execute(sql,val)
         mydb.commit()
         messagebox.showinfo('Create Budget Successfully')
-    
-    
+        
+  
     def Scenario() :
-        scrioscrn = Toplevel()
+        scrioscrn = Toplevel(root)
         scrioscrn.title('CREATE')
-        scrioscrn.geometry('580x390')
+        scrioscrn.geometry('580x620')
         Label(scrioscrn, text='SCENARIO CREATION', bg="blue",
           font='17', fg="white", width=430).pack()
-        global ctname, scecmb1
+        global ctname, scecmb1, scecmb2 
         scname = Label(scrioscrn, text='Name:').place(x=20, y=70)
         sctname = StringVar()
         bentry1 = Entry(scrioscrn, textvariable=sctname,
@@ -131,7 +131,18 @@ def create_master() :
         scinclude = Label(scrioscrn, text='Include Actuals:').place(x=20, y=100)
         scin = ['Yes','No']
         scecmb1 = ttk.Combobox(scrioscrn, value=scin, width=35)
-        scecmb1.place(x=170, y=130)
+        scecmb1.place(x=170, y=100)
+        sceinclude = Label(scrioscrn, text='Include:').place(x=20, y=130)
+        scein = ['Attendance','Contra','Credit Note','Debit Note','Deliver Note','Job Work In Order','Job Work Out Order','Journal','Material In','Memorandum','Payment','Payroll','Physical Stock','Purchase','Purchase Order','Receipt','Receipt Note','Rejection In','Rejection Out','Reversing Journal','Sales','Sales Order','Stock Journal']
+        scecmb2 = ttk.Combobox(scrioscrn, value=scein, width=35)
+        scecmb2.place(x=170, y=130)
+        def SCE(event) :
+            scein = ['Attendance','Contra','Credit Note','Debit Note','Deliver Note','Job Work In Order','Job Work Out Order','Journal','Material In','Memorandum','Payment','Payroll','Physical Stock','Purchase','Purchase Order','Receipt','Receipt Note','Rejection In','Rejection Out','Reversing Journal','Sales','Sales Order','Stock Journal']
+            scecmb2 = ttk.Combobox(scrioscrn,value=scein, width=35)
+            scecmb2.place(x=170, y=160)
+        scecmb2.bind("<<ComboboxSelected>>",SCE)
+       
+        
     
     def showMore() :  
         Button(screen1, text='Budget',fg='black', font=(
