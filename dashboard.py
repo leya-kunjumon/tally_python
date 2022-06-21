@@ -123,7 +123,7 @@ def create_master() :
         scrioscrn.geometry('580x620')
         Label(scrioscrn, text='SCENARIO CREATION', bg="blue",
           font='17', fg="white", width=430).pack()
-        global ctname, scecmb1, scecmb2 
+        global sctname, scecmb1, scecmb2,scecmb3, scecmb4, scecmb5, scecmb6
         scname = Label(scrioscrn, text='Name:').place(x=20, y=70)
         sctname = StringVar()
         bentry1 = Entry(scrioscrn, textvariable=sctname,
@@ -137,12 +137,31 @@ def create_master() :
         scecmb2 = ttk.Combobox(scrioscrn, value=scein, width=35)
         scecmb2.place(x=170, y=130)
         def SCE(event) :
-            scein = ['Attendance','Contra','Credit Note','Debit Note','Deliver Note','Job Work In Order','Job Work Out Order','Journal','Material In','Memorandum','Payment','Payroll','Physical Stock','Purchase','Purchase Order','Receipt','Receipt Note','Rejection In','Rejection Out','Reversing Journal','Sales','Sales Order','Stock Journal']
-            scecmb2 = ttk.Combobox(scrioscrn,value=scein, width=35)
-            scecmb2.place(x=170, y=160)
+            sceinn = ['Attendance','Contra','Credit Note','Debit Note','Deliver Note','Job Work In Order','Job Work Out Order','Journal','Material In','Memorandum','Payment','Payroll','Physical Stock','Purchase','Purchase Order','Receipt','Receipt Note','Rejection In','Rejection Out','Reversing Journal','Sales','Sales Order','Stock Journal']
+            scecmb3 = ttk.Combobox(scrioscrn,value=sceinn, width=35)
+            scecmb3.place(x=170, y=160)
+            def SCE1(event) :
+                sceinnc = ['Attendance','Contra','Credit Note','Debit Note','Deliver Note','Job Work In Order','Job Work Out Order','Journal','Material In','Memorandum','Payment','Payroll','Physical Stock','Purchase','Purchase Order','Receipt','Receipt Note','Rejection In','Rejection Out','Reversing Journal','Sales','Sales Order','Stock Journal']
+                scecmb4 = ttk.Combobox(scrioscrn,value=sceinnc, width=35)
+                scecmb4.place(x=170, y=190)
+                def SCE2(event) :
+                     sceinncl = ['Attendance','Contra','Credit Note','Debit Note','Deliver Note','Job Work In Order','Job Work Out Order','Journal','Material In','Memorandum','Payment','Payroll','Physical Stock','Purchase','Purchase Order','Receipt','Receipt Note','Rejection In','Rejection Out','Reversing Journal','Sales','Sales Order','Stock Journal']
+                     scecmb5 = ttk.Combobox(scrioscrn,value=sceinncl, width=35)
+                     scecmb5.place(x=170, y=220)
+                     def SCE3(event) :
+                       sceinnclu = ['Attendance','Contra','Credit Note','Debit Note','Deliver Note','Job Work In Order','Job Work Out Order','Journal','Material In','Memorandum','Payment','Payroll','Physical Stock','Purchase','Purchase Order','Receipt','Receipt Note','Rejection In','Rejection Out','Reversing Journal','Sales','Sales Order','Stock Journal']
+                       scecmb6 = ttk.Combobox(scrioscrn,value=sceinnclu, width=35)
+                       scecmb6.place(x=170, y=250)
+                     
+                     scecmb5.bind("<<ComboboxSelected>>",SCE3)
+                scecmb4.bind("<<ComboboxSelected>>",SCE2)
+            scecmb3.bind("<<ComboboxSelected>>",SCE1)
+            
         scecmb2.bind("<<ComboboxSelected>>",SCE)
-       
-        
+        scexclude = Label(scrioscrn, text='Exclude Actuals:').place(x=20, y=290)
+        sceex = ['Attendance','Contra','Credit Note','Debit Note','Deliver Note','Job Work In Order','Job Work Out Order','Journal','Material In','Memorandum','Payment','Payroll','Physical Stock','Purchase','Purchase Order','Receipt','Receipt Note','Rejection In','Rejection Out','Reversing Journal','Sales','Sales Order','Stock Journal']
+        scecmb7 = ttk.Combobox(scrioscrn, value=sceex, width=35)
+        scecmb7.place(x=170, y=290)
     
     def showMore() :  
         Button(screen1, text='Budget',fg='black', font=(
